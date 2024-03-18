@@ -1,4 +1,4 @@
-FROM mysql:latest
+FROM mysql:debian
 
 # Install Python and dependencies
 RUN apk add --no-cache python3 python3-pip git
