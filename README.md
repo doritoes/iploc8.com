@@ -47,6 +47,7 @@ Here are the goals I have for this project. If you would like to encourage me to
 1. git clone https://github.com/doritoes/iploc8.com
 2. cd iploc8.com
 3. *set the MYSQL_ROOT_PASSWORD environment variable before building the image*
-4. docker build -t my-flask-mysql .
-5. docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
-6. Visit http://localhost:5000 to test the application
+    - Windows: `set MYSQL_ROOT_PASSWORD=1a2d3m4i5n`
+5. docker build -t my-flask-mysql .
+6. docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
+7. Visit http://localhost:5000 to test the application
