@@ -1,7 +1,8 @@
-FROM mysql:debian
+FROM mysql:debian 
 
-# Install Python and dependencies
-RUN apk add --no-cache python3 python3-pip git
+# Install Python, pip, and git 
+RUN apt-get update && apt-get install -y python3 python3-pip git
+
 WORKDIR /app
 COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
