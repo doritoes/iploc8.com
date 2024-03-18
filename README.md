@@ -38,7 +38,6 @@ Here are the goals I have for this project. If you would like to encourage me to
 - Threat Intel enrichment
   - Proxy detection
   - Reputation/blacklists
-  - 
 - Might migrate to Azure or GCP if it becomes an interesting challenge
 ## Out of Scope
 - Amazon Elastic Kubernetes Service (EKS) doesn't meet my criteria for integrating a new technology for me. I have done other Kubernetes labs ([here](https://www.unclenuc.com/lab:kubernetes_app:start) and [here](https://www.unclenuc.com/lab:stack_of_nucs:start)).
@@ -48,6 +47,12 @@ Here are the goals I have for this project. If you would like to encourage me to
 2. cd iploc8.com
 3. *set the MYSQL_ROOT_PASSWORD environment variable before building the image*
     - Windows: `set MYSQL_ROOT_PASSWORD=1a2d3m4i5n`
-5. docker build -t my-flask-mysql .
-6. docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
-7. Visit http://localhost:5000 to test the application
+4. docker build -t my-flask-mysql .
+5. docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
+6. Visit http://localhost:5000 to test the application
+
+Important notes
+- No Exposed MySQL Port: The connection string in app.py uses 'localhost' for secure database access
+- startup Script (start.sh) : We manage MySQL initialization, schema loading, and Flask startup
+- docker entrypoint support: Assumes your MySQL image uses /docker-entrypoint-initdb.d for initialization scripts
+- adjust schema.sql, app.py (models, routes), and set your desired password
