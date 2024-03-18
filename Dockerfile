@@ -1,7 +1,14 @@
 FROM python:3.8-slim
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y git mysql-server
+RUN apt-get update && apt-get install -y git
+
+# Add MariaDB repository (or official MySQL if preferred)
+RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' && \
+    add-apt-repository 'deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.6/debian bookworm main'
+
+# Install MySQL server (MariaDB in this case)
+RUN apt-get update && apt-get install -y mariadb-server 
 
 # Create a working directory
 WORKDIR /app
