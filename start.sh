@@ -14,7 +14,7 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
         FIELDS TERMINATED BY ','
         ENCLOSED BY '\"'
         LINES TERMINATED BY '\n'
-        (Code, Name);
+        (Name, Code);
 "
 # git clone https://github.com/sapics/ip-location-db
 
