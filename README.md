@@ -42,7 +42,7 @@ Here are the goals I have for this project. If you would like to encourage me to
 ## Out of Scope
 - Amazon Elastic Kubernetes Service (EKS) doesn't meet my criteria for integrating a new technology for me. I have done other Kubernetes labs ([here](https://www.unclenuc.com/lab:kubernetes_app:start) and [here](https://www.unclenuc.com/lab:stack_of_nucs:start)).
 
-## Instructions
+# Instructions
 :warning: If you are using Windows, you need to do this in a WSL (Windows Subsystem for Linux) window. Otherwise, you will have line-ending issues with the scripts and other text files.
 
 1. git clone https://github.com/doritoes/iploc8.com
@@ -61,3 +61,19 @@ Important notes
 - docker entrypoint support: Assumes your MySQL image uses /docker-entrypoint-initdb.d for initialization scripts
 - adjust schema.sql, app.py (models, routes), and set your desired password
 - countries.csv was last refreshed from https://datahub.io/core/country-list on 3/19/2024
+
+# Data Sources
+- https://github.com/sapics/ip-location-db
+- https://iptoasn.com/
+- https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide
+  - https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
+- Micorosoft Public IP address ranges in CSV https://www.microsoft.com/en-us/download/details.aspx?id=53602
+- Broadcom proxy SWG
+  - https://knowledge.broadcom.com/external/article/167174/web-security-service-wss-ingress-and-egr.html
+  - https://servicepoints.threatpulse.com/
+- Zscaler proxy SWG
+  - https://config.zscaler.com/zscaler.net/cenr
+    - https://config.zscaler.com/api/zscaler.net/cenr/json
+  - https://config.zscaler.com/zscaler.net/hubs
+    - https://config.zscaler.com/api/zscaler.net/hubs/cidr/json/recommended
+- https://github.com/TheSpeedX/PROXY-List
