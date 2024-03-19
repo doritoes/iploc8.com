@@ -13,7 +13,7 @@ mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
         INTO TABLE countries
         FIELDS TERMINATED BY ','
         ENCLOSED BY '"'
-        LINES TERMINATED BY '\n';
+        LINES TERMINATED BY '\n'
         (Code, Name);
 "
 # git clone https://github.com/sapics/ip-location-db
