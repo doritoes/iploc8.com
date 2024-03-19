@@ -38,5 +38,21 @@ def healthcheck():
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
     return jsonify({'status': 'OK'})  # Return "OK" status
 
+# API Route (/api/v1/ip)
+@app.route('/api/v1/ip')
+def get_ip():
+    ip_address = request.args.get('ip')  # Extract IP address from query parameter
+    if not ip_address:
+        return jsonify({'error': 'Missing IP address'}), 400  # Error if IP is not provided
+    try:
+        ip = ipaddress.ip_address(ip_address)
+    except ValueError:
+        return jsonify({'error': 'Invalid IP address'}), 400 
+    return jsonify({
+        'ip': ip_address},
+        'decimal: int(ip)
+    })
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
