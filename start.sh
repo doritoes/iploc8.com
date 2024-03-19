@@ -17,4 +17,4 @@ mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" < /docker-entrypoint-initdb.d/schema.sql
 EOSQL
 
 # Start the Flask application
-/usr/bin/python3 -m app flask --host=0.0.0.0 &
+nohup /usr/bin/python3 -m app flask --host=0.0.0.0 &
