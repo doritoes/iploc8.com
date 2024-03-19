@@ -30,6 +30,14 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     LINES TERMINATED BY '\n'
     (start, end, asn, description); 
 "
-
+echo >&2 "importing geo-whois-asn-country-ipv4-num.csv"
+mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+    USE mydatabase;
+    LOAD DATA LOCAL INFILE '/app/iptoasn-asn-ipv4-num.csvgeo-whois-asn-country-ipv4-num.csv'
+    INTO TABLE asn
+    FIELDS TERMINATED BY ',' 
+    LINES TERMINATED BY '\n'
+    (start, end, country); 
+"
 echo >&2 "download complete - starting app"
 python3 app.py
