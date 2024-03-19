@@ -11,3 +11,13 @@ CREATE TABLE IF NOT EXISTS countries (
   Code CHAR(2) PRIMARY KEY,
   Name VARCHAR(255) NOT NULL 
 ); 
+
+CREATE TABLE asn (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  start BIGINT NOT NULL,
+  end BIGINT NOT NULL,
+  asn BIGINT NOT NULL,
+  description VARCHAR(255), 
+  INDEX (start),
+  INDEX (end)
+); 
