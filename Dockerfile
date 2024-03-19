@@ -1,6 +1,6 @@
 FROM mysql
 
-RUN microdnf update && microdnf install -y python3 python3-pip git
+RUN microdnf update && microdnf install -y python3-devel gcc make gnupg2 python3 python3-pip git
 
 WORKDIR /app
 COPY requirements.txt ./
