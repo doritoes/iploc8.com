@@ -24,7 +24,6 @@ def hello_world():
     cursor = mysql.connect().cursor()
     user_count = cursor.execute("SELECT COUNT(*) FROM users")
     user_count_result = cursor.fetchone()[0]  # Fetch the count
-    # return jsonify({'message': 'Hello from Flask and MySQL!'})
     return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
 
 # Healthcheck route
