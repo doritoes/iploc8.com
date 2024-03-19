@@ -37,7 +37,14 @@ def healthcheck():
     except Exception as e:
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
-    return jsonify({'status': 'OK'})  # Return "OK" status
+    # Uptime check
+    boot_time = psutil.boot_time()
+    uptime_seconds = time.time() - boot_time
+    uptime_hours = uptime_seconds / 3600
+    if uptime_hours > 12:
+        return jsonify({'status': 'Container uptime exceeds threshold'}), 203
+    else:
+        return jsonify({'status': 'OK'})
 
 # API Route (/api/v1/ip)
 @app.route('/api/v1/ip')
