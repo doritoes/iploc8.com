@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flaskext.mysql import MySQL
+import ipaddress
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -41,9 +42,9 @@ def healthcheck():
 # API Route (/api/v1/ip)
 @app.route('/api/v1/ip')
 def get_ip():
-    ip_address = request.args.get('ip')  # Extract IP address from query parameter
+    ip_address = request.args.get('ip')
     if not ip_address:
-        return jsonify({'error': 'Missing IP address'}), 400  # Error if IP is not provided
+        return jsonify({'error': 'Missing IP address'}), 400
     try:
         ip = ipaddress.ip_address(ip_address)
     except ValueError:
