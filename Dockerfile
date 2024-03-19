@@ -1,4 +1,4 @@
-FROM mysql:debian 
+FROM mysql
 
 RUN microdnf update && microdnf install -y python3 python3-pip git
 
