@@ -1,4 +1,4 @@
 flask
 flask-mysql
 PyMySQL[rsa]
-mysql-connector-python
+mysql-connector-python==8.0.32
