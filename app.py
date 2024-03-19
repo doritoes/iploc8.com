@@ -47,11 +47,24 @@ def get_ip():
         return jsonify({'error': 'Missing IP address'}), 400
     try:
         ip = ipaddress.ip_address(ip_address)
+        ip_decimal = int(ip)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400 
+    try:
+        cursor = mysql.connect().cursor()
+        cursor.execute("SELECT country FROM geo WHERE start <= %s AND end >= %s", (ip_decimal, ip_decimal))
+        result = cursor.fetchone()
+        if result:
+            country = result[0]
+        else:
+            country = "Unknown"  # Handle case where no country is found
+    except Exception as e:
+        print(f"Error encountered: {e}")
+        return jsonify({'error': 'Database query failed'}), 500 
     return jsonify({
         'ip': ip_address,
-        'decimal': int(ip)
+        'decimal': ip_decimal,
+        'country': country
     })
 
 
