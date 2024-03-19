@@ -21,12 +21,23 @@ class User(object):
 # Sample route
 @app.route('/')
 def hello_world():
-    # cursor = mysql.get_db().cursor()  # Get a cursor
     cursor = mysql.connect().cursor()
     user_count = cursor.execute("SELECT COUNT(*) FROM users")
     user_count_result = cursor.fetchone()[0]  # Fetch the count
     # return jsonify({'message': 'Hello from Flask and MySQL!'})
     return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
+
+# Healthcheck route
+@app.route('/healthcheck')
+def healthcheck():
+    try:
+        cursor = mysql.connect().cursor()
+        user_count = cursor.execute("SELECT COUNT(*) FROM users")
+        user_count_result = cursor.fetchone()[0]  # Fetch the count
+    except Exception as e:
+        print(f"Error encountered: {e}") // Log error
+        return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
+    return jsonify({'status': 'OK'})  # Return "OK" status
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
