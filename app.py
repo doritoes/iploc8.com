@@ -65,6 +65,15 @@ def get_ip():
         else:
             country = "Unknown"
             country_long = "Unknown"
+        cursor.execute("""
+            SELECT description 
+            FROM asn 
+            WHERE start <= %s AND end >= %s
+        """, (ip_decimal, ip_decimal))
+        asn_result = cursor.fetchone()
+        isp = asn_result[0] if asn_result else "Unknown" 
+
+        isp = asn_result[0] if asn_result else "Unknown" 
     except Exception as e:
         print(f"Error encountered: {e}")
         return jsonify({'error': 'Database query failed'}), 500 
@@ -72,7 +81,8 @@ def get_ip():
         'ip': ip_address,
         'decimal': ip_decimal,
         'country': country,
-        'country_long': country_long
+        'country_long': country_long,
+        'ips': isp
     })
 
 
