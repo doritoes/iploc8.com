@@ -16,4 +16,4 @@ COPY schema.sql /docker-entrypoint-initdb.d/schema.sql
 EXPOSE 5000
 
 # Start the container
-CMD /usr/local/bin/docker-entrypoint.sh mysqld && /bin/bash start.sh && /usr/bin/python3 -m app flask --host=0.0.0.0
+CMD /usr/local/bin/docker-entrypoint.sh mysqld && /bin/bash start.sh
