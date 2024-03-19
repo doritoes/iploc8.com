@@ -2,10 +2,12 @@ from flask import Flask, jsonify, request
 from flaskext.mysql import MySQL
 import ipaddress
 import time
-import psutil
 
 app = Flask(__name__)
 mysql = MySQL()
+
+# Capture uptime
+container_start_time = time.time()
 
 # Configure MySQL database
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -40,8 +42,7 @@ def healthcheck():
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
     # Uptime check
-    boot_time = psutil.boot_time()
-    uptime_seconds = time.time() - boot_time
+    uptime_seconds = time.time() - container_start_time
     uptime_hours = uptime_seconds / 3600
     if uptime_hours > 12:
         return jsonify({'status': f'Container uptime exceeds threshold (uptime: {uptime_seconds} seconds)'}), 203
