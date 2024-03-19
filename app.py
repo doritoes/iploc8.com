@@ -21,8 +21,8 @@ class User(object):
 # Sample route
 @app.route('/')
 def hello_world():
-    cursor = mysql.get_db().cursor()  # Get a cursor
-    # cursor = mysql.connect().cursor()
+    # cursor = mysql.get_db().cursor()  # Get a cursor
+    cursor = mysql.connect().cursor()
     user_count = cursor.execute("SELECT COUNT(*) FROM users")
     user_count_result = cursor.fetchone()[0]  # Fetch the count
     # return jsonify({'message': 'Hello from Flask and MySQL!'})
