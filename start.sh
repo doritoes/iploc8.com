@@ -7,6 +7,14 @@ until mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" &> /dev/null; do
   sleep 2
 done
 echo >&2 "MySQL is up - starting data import"
+mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+    USE mydatabase;
+    LOAD DATA LOCAL INFILE '/app/countries.csv' 
+        INTO TABLE countries 
+        FIELDS TERMINATED BY ',' 
+        ENCLOSED BY '"'  
+        LINES TERMINATED BY '\n'; 
+"
 # git clone https://github.com/sapics/ip-location-db
 
 echo >&2 "download complete - starting app"
