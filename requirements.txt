@@ -1,3 +1,4 @@
 flask
 flask-mysql
 PyMySQL[rsa]
+mysql-connector-python
