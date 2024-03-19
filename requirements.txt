@@ -1,3 +1,4 @@
 flask
 flask-mysql
+python3-setuptools
 PyMySQL[rsa]
