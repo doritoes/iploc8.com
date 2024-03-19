@@ -27,4 +27,4 @@ def hello_world():
     return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True)
