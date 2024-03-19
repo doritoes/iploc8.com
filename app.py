@@ -34,7 +34,7 @@ def healthcheck():
         user_count = cursor.execute("SELECT COUNT(*) FROM users")
         user_count_result = cursor.fetchone()[0]  # Fetch the count
     except Exception as e:
-        print(f"Error encountered: {e}") // Log error
+        print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
     return jsonify({'status': 'OK'})  # Return "OK" status
 
