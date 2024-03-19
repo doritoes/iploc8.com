@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
-from flask_mysql import MySQL
+#from flask_mysql import MySQL
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
