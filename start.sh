@@ -12,7 +12,7 @@ mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     LOAD DATA LOCAL INFILE '/app/countries.csv'
         INTO TABLE countries
         FIELDS TERMINATED BY ','
-        ENCLOSED BY '"'
+        ENCLOSED BY '\"'
         LINES TERMINATED BY '\n'
         (Code, Name);
 "
