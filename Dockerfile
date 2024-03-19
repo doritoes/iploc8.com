@@ -12,5 +12,8 @@ COPY app.py schema.sql start.sh ./
 # Set up MySQL (wait/configuration) - Assuming docker-entrypoint-initdb.d is supported
 COPY schema.sql /docker-entrypoint-initdb.d/schema.sql 
 
+# Expose Flask application port
+EXPOSE 5000
+
 # Start the container
 CMD ["/bin/bash", "start.sh"]
