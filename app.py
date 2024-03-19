@@ -44,7 +44,7 @@ def healthcheck():
     uptime_seconds = time.time() - boot_time
     uptime_hours = uptime_seconds / 3600
     if uptime_hours > 12:
-        return jsonify({'status': 'Container uptime exceeds threshold'}), 203
+        return jsonify({'status': f'Container uptime exceeds threshold (uptime: {uptime_seconds} seconds'}), 203
     else:
         return jsonify({'status': 'OK'})
 
