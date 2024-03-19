@@ -33,8 +33,8 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
 echo >&2 "importing geo-whois-asn-country-ipv4-num.csv"
 mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
-    LOAD DATA LOCAL INFILE '/app/iptoasn-asn-ipv4-num.csvgeo-whois-asn-country-ipv4-num.csv'
-    INTO TABLE asn
+    LOAD DATA LOCAL INFILE '/app/geo-whois-asn-country-ipv4-num.csv'
+    INTO TABLE geo
     FIELDS TERMINATED BY ',' 
     LINES TERMINATED BY '\n'
     (start, end, country); 
