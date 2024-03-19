@@ -9,7 +9,7 @@ app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'your_mysql_password'
 app.config['MYSQL_DATABASE_DB'] = 'mydatabase'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-mysql = MySQL(app) 
+#mysql = MySQL(app) 
 
 # Sample Model (You can keep your existing User model if you have one)
 class User(object):  
