@@ -77,3 +77,4 @@ Important notes
   - https://config.zscaler.com/zscaler.net/hubs
     - https://config.zscaler.com/api/zscaler.net/hubs/cidr/json/recommended
 - https://github.com/TheSpeedX/PROXY-List
+- TOR exit nodes
