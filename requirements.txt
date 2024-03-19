@@ -2,3 +2,4 @@ flask
 flask-mysql
 PyMySQL[rsa]
 mysql-connector-python==8.0.32
+psutil
