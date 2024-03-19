@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flaskext.mysql import MySQL
 
 app = Flask(__name__)
+mysql = MySQL()
 
 # Configure MySQL database
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -21,9 +22,10 @@ class User(object):
 @app.route('/')
 def hello_world():
     cursor = mysql.get_db().cursor()  # Get a cursor
+    # cursor = mysql.connect().cursor()
     user_count = cursor.execute("SELECT COUNT(*) FROM users")
     user_count_result = cursor.fetchone()[0]  # Fetch the count
-    #return jsonify({'message': 'Hello from Flask and MySQL!'})
+    # return jsonify({'message': 'Hello from Flask and MySQL!'})
     return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
 
 if __name__ == '__main__':
