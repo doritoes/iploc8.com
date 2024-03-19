@@ -9,11 +9,12 @@ done
 echo >&2 "MySQL is up - starting data import"
 mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
-    LOAD DATA LOCAL INFILE '/app/countries.csv' 
-        INTO TABLE countries 
-        FIELDS TERMINATED BY ',' 
-        ENCLOSED BY '"'  
-        LINES TERMINATED BY '\n'; 
+    LOAD DATA LOCAL INFILE '/app/countries.csv'
+        INTO TABLE countries
+        FIELDS TERMINATED BY ','
+        ENCLOSED BY '"'
+        LINES TERMINATED BY '\n';
+        (Code, Name);
 "
 # git clone https://github.com/sapics/ip-location-db
 
