@@ -7,7 +7,7 @@ until mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" &> /dev/null; do
   sleep 2
 done
 echo >&2 "MySQL is up - starting data import"
-mysql --local-infile=1 --skip-password-warning -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
     LOAD DATA LOCAL INFILE '/app/countries.csv'
         INTO TABLE countries
