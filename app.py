@@ -50,7 +50,7 @@ def get_ip():
         return jsonify({'error': 'Invalid IP address'}), 400 
     return jsonify({
         'ip': ip_address},
-        'decimal: int(ip)
+        'decimal': int(ip)
     })
 
 
