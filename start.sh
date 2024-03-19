@@ -6,5 +6,8 @@ until mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" &> /dev/null; do
   echo >&2 "MySQL is unavailable - sleeping"
   sleep 2
 done
-echo >&2 "MySQL is up - starting app"
+echo >&2 "MySQL is up - starting data import"
+git clone https://github.com/sapics/ip-location-db
+
+echo >&2 "download complete - starting app"
 python3 app.py
