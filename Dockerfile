@@ -8,7 +8,6 @@ RUN pip3 install -r requirements.txt
 
 # Copy application files
 COPY app.py schema.sql start.sh ./
-RUN chmod +x start.sh
 
 # Set up MySQL (wait/configuration) - Assuming docker-entrypoint-initdb.d is supported
 COPY schema.sql /docker-entrypoint-initdb.d/schema.sql 
@@ -17,4 +16,4 @@ COPY schema.sql /docker-entrypoint-initdb.d/schema.sql
 EXPOSE 5000
 
 # Start the container
-CMD /usr/local/bin/docker-entrypoint.sh mysqld && /bin/bash start.sh
+CMD /usr/local/bin/docker-entrypoint.sh mysqld || /bin/bash start.sh
