@@ -82,7 +82,7 @@ def get_ip():
         'decimal': ip_decimal,
         'country': country,
         'country_long': country_long,
-        'ips': isp
+        'isp': isp
     })
 
 
