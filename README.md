@@ -43,12 +43,16 @@ Here are the goals I have for this project. If you would like to encourage me to
 - Amazon Elastic Kubernetes Service (EKS) doesn't meet my criteria for integrating a new technology for me. I have done other Kubernetes labs ([here](https://www.unclenuc.com/lab:kubernetes_app:start) and [here](https://www.unclenuc.com/lab:stack_of_nucs:start)).
 
 ## Instructions
+:warning: If you are using Windows, you need to do this in a WSL (Windows Subsystem for Linux) window. Otherwise, you will have line-ending issues with the scripts and other text files.
+
 1. git clone https://github.com/doritoes/iploc8.com
 2. cd iploc8.com
 3. *set the MYSQL_ROOT_PASSWORD environment variable before building the image*
     - Windows: `set MYSQL_ROOT_PASSWORD=1a2d3m4i5n`
 4. docker build -t my-flask-mysql .
 5. docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
+    - you will see "MySQL is unavailable -sleeping" for while
+    - ERROR: it never progresses at this point
 6. Visit http://localhost:5000 to test the application
 
 Important notes
