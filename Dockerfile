@@ -17,4 +17,3 @@ EXPOSE 5000
 
 # Start the container
 CMD /usr/local/bin/docker-entrypoint.sh mysqld && /bin/bash start.sh
-# CMD ["/bin/bash", "start.sh"]
