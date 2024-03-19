@@ -1,6 +1,6 @@
 FROM mysql
 
-RUN microdnf update && microdnf install -y python3-devel glibc-devel glibc-headers elfutils-libelf-devel gcc make rpm-sign gnupg2 python3 python3-pip git
+RUN microdnf update && microdnf install -y python3-devel python3 python3-pip glibc-devel glibc-headers elfutils-libelf-devel gcc make rpm-sign gnupg2 git
 
 WORKDIR /app
 COPY requirements.txt ./
