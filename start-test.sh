@@ -9,4 +9,4 @@ until mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" &> /dev/null; do
   sleep 2
 done
 echo >&2 "MySQL is up - executing command"
-python3 app.py &
+python3 app.py
