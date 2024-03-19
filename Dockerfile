@@ -4,7 +4,7 @@ RUN microdnf update && microdnf install -y python3-devel python3 python3-pip gli
 
 WORKDIR /app
 COPY requirements.txt ./
-RUN pip3 intall --upgrade pip
+RUN pip3 intsall --upgrade pip
 RUN pip3 install -r requirements.txt
 
 # Copy application files
