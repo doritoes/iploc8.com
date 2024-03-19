@@ -17,7 +17,8 @@ class User(db.Model):
 # Sample route
 @app.route('/')
 def hello_world():
-    return jsonify({'message': 'Hello from Flask and MySQL!'})
+    user_count = db.session.query(db.func.count(User.id)).scalar()  # Get user count
+    return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
