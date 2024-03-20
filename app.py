@@ -123,9 +123,20 @@ def login():
 
     api_key = request.json["api_key"]
 
-    # No need to validate the api_key for this immediate change
-    access_token = create_access_token(identity=api_key) 
-    return jsonify(access_token=access_token), 200
+    try:
+        cursor = mysql.connect().cursor()
+        query = "SELECT guuid FROM keys WHERE guuid = %s AND valid IS TRUE"
+        cursor.execute(query, (api_key,))
+        result = cursor.fetchone()
+
+        if result and result[0] and result[0] == api_key:
+            access_token = create_access_token(identity=api_key) 
+            return jsonify(access_token=access_token), 200
+        else:
+            return jsonify({"error": "Invalid API key"}), 401 
+    except Exception as e:
+        print(f"Error encountered: {e}")
+        return jsonify({"error": "Database error"}), 500
 
 @app.route('/api/v2/ip', methods=["GET", "POST"])
 @jwt_required()
