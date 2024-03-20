@@ -51,3 +51,11 @@ CREATE TABLE city (
     INDEX (start),
     INDEX (end)
 );
+
+CREATE TABLE keys (
+    guuid VARCHAR(48) PRIMARY KEY,
+    valid BOOLEAN DEFAULT TRUE
+);
+
+INSERT INTO keys (guuid, valid) 
+VALUES ('e95b186d-3677-4466-9cb2-20a549ab1d85', TRUE); 
