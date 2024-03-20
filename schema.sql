@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS countries (
   Name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE asn (
+CREATE TABLE IF NOT EXISTS asn (
   id INT AUTO_INCREMENT PRIMARY KEY,
   start BIGINT NOT NULL,
   end BIGINT NOT NULL,
@@ -22,11 +22,16 @@ CREATE TABLE asn (
   INDEX (end)
 );
 
-CREATE TABLE geo (
+CREATE TABLE IF NOT EXISTS geo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     start BIGINT NOT NULL,
     end BIGINT NOT NULL,
     country CHAR(2),
     INDEX (start),
     INDEX (end)
+);
+
+CREATE TABLE IF NOT EXISTS sanctions (
+    Country CHAR(2) PRIMARY KEY,
+    Sanction VARCHAR(255) NOT NULL
 );
