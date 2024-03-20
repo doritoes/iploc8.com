@@ -154,15 +154,9 @@ def ip_info():
         user_ip = request.args.get("ip")
     else:
         return jsonify({"error": "Unsupported method"}), 405
-    try:
-        ip = ipaddress.ip_address(ip_address)
-        ip_decimal = int(ip)
-    except ValueError:
-        return jsonify({'error': 'Invalid IP address'}), 400 
     ip_data = {
-        "ip": "hi",
-        "isp": "there"
-    } 
+        "ip": user_ip
+    }
     return jsonify(ip_data), 200
 
 if __name__ == '__main__':
