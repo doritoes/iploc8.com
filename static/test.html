@@ -11,17 +11,18 @@
     <script>
 $(document).ready(function() {
     const apiUrl = "http://localhost:5000"; // Base URL for your Flask API
+    const apiKey = "e95b186d-3677-4466-9cb2-20a549ab1d85"; 
 
     // Step 1: Fetch client IP from ipify
     $.getJSON("https://api.ipify.org?format=json", function(data) {
         const clientIp = data.ip;
 
-        // Step 2: Login to get JWT Token
+        // Step 2: Login (Modified to use API Key)
         $.ajax({
             url: apiUrl + "/api/v2/login",
             method: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ username: "your_username" }),  
+            data: JSON.stringify({ api_key: apiKey }), // Send API key 
             success: function(response) {
                 const jwtToken = response.access_token; 
 
@@ -40,11 +41,12 @@ $(document).ready(function() {
                 });
             },
             error: function(error) {
-                $("#ip-data").html("Error during login");
+                $("#ip-data").html("Error during login (check API key)");
             }
         });
     });
 });
+
     </script>
 </body>
 </html>
