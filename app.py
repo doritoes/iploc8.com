@@ -185,23 +185,13 @@ def ip_info():
             state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
     except Exception as e:
         print(f"Error encountered: {e}")
-
+    finally:
+        if cursor:
+            cursor.close()  # Ensure cursor is closed
     isp = "disabled"
     ip_data = {
-        "ip": user_ip,
-        "city": city,
-        "state": state1,
-        "state2": state2,
-        "country": country,
-        "country_long": country_long,
-        "postcode": postcode,
-        "latitude": latitude,
-        "longitude": longitude,
-        "timezone": timezone,
-        "isp": isp,
-        "attribution": "db-ip.com",
-        "link": "https://db-ip.com/"
-    } 
+        "ip": user_ip
+    }
     return jsonify(ip_data), 200
 
 if __name__ == '__main__':
