@@ -3,6 +3,7 @@ from flask_jwt_extended import create_access_token, JWTManager, jwt_required, ge
 from flaskext.mysql import MySQL
 import ipaddress
 import time
+import os
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -18,7 +19,7 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
 # Configure JWT-Extended
-app.config["JWT_SECRET_KEY"] = "your-strong-secret-key"  # Replace with a secure secret key
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY") 
 jwt = JWTManager(app)  
 
 # Sample route
