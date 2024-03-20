@@ -193,11 +193,13 @@ def ip_info():
         "state": state1,
         "state2": state2,
         "country": country,
-        "country_long": country_long,
         "postcode": postcode,
         "latitude": latitude,
         "longitude": longitude,
-        "timezone": timezone
+        "timezone": timezone,
+        "isp": isp,
+        "attribution": "db-ip.com",
+        "link": "https://db-ip.com/"
     }
     return jsonify(ip_data), 200
 
