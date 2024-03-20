@@ -124,11 +124,6 @@ def login():
 @jwt_required()
 def ip_info():
     current_user = get_jwt_identity()  
-    if not request.args.get("ip"):  # Check query parameters for GET
-        return jsonify({"error": "Invalid request"}), 400
-
-    user_ip = request.args.get("ip")def ip_info():
-    current_user = get_jwt_identity()  
     if request.method == "POST":
         if not request.is_json or not "ip" in request.json:
             return jsonify({"error": "Invalid request"}), 400 
@@ -139,10 +134,13 @@ def ip_info():
         user_ip = request.args.get("ip")
     else:
         return jsonify({"error": "Unsupported method"}), 405
-    
-    # Placeholder: Replace with your actual IP lookup logic
-    ip_data = {"ip": user_ip, "location": "Sample Location"}  
 
+    # Placeholder: Replace with your actual IP lookup logic
+    ip_data = {
+        "ip": user_ip,
+        "location": "Sample Location",  
+        "other_info": "More IP details"  # Add other fields as needed
+    } 
     return jsonify(ip_data), 200
 
 if __name__ == '__main__':
