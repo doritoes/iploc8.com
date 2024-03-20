@@ -121,6 +121,7 @@ def get_ip():
         output_data['sanction'] = sanction
     return jsonify(output_data)
 
+# API Route (/api/v2/login)
 @app.route("/api/v2/login", methods=["POST"])
 def login():
     if not request.is_json or not "api_key" in request.json:
@@ -140,6 +141,7 @@ def login():
         print(f"Error encountered: {e}")
         return jsonify({"error": "Database error"}), 500
 
+# API Route (/api/v2/ip)
 @app.route('/api/v2/ip', methods=["GET", "POST"])
 @jwt_required()
 def ip_info():
@@ -154,6 +156,11 @@ def ip_info():
         user_ip = request.args.get("ip")
     else:
         return jsonify({"error": "Unsupported method"}), 405
+    try:
+        ip = ipaddress.ip_address(user_ip)
+        ip_decimal = int(ip)
+    except ValueError:
+        return jsonify({'error': 'Invalid IP address'}), 400
     ip_data = {
         "ip": user_ip
     }
