@@ -27,14 +27,14 @@ Here are the goals I have for this project. If you would like to encourage me to
 ### Will Do
 - fix health check to work on a live table
 - clean up csv files after import
-- Bootstrapping image on Docker Hub
-- One region built
-- Multi-region
+- move favicon.ico file(s) to /app/static/
+- bootstrapping image on Docker Hub
+- one region built
+- multi-region
 - Add MS published address spaces
 - Add Tor published address spaces
 - Add Zscaler published POP addresses spaces
 - Add Broadcom published POP addresses spaces
-- Add ASN data
 - WAF API protection
 ### Might Do
 - MS Azure customer space
@@ -44,7 +44,6 @@ Here are the goals I have for this project. If you would like to encourage me to
 - Threat Intel enrichment
   - Proxy detection
   - Reputation/blacklists
-- 
 - Might migrate to Azure or GCP if it becomes an interesting challenge
 ## Out of Scope
 - Amazon Elastic Kubernetes Service (EKS) doesn't meet my criteria for integrating a new technology for me. I have done other Kubernetes labs ([here](https://www.unclenuc.com/lab:kubernetes_app:start) and [here](https://www.unclenuc.com/lab:stack_of_nucs:start)).
