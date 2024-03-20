@@ -29,6 +29,11 @@ def hello_world():
 def favicon():
     return send_from_directory('static','favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+# robots.txt route
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('static', 'robots.txt')
+
 # Healthcheck route
 @app.route('/healthcheck')
 def healthcheck():
