@@ -19,13 +19,14 @@ Here are the goals I have for this project. If you would like to encourage me to
 ## In Scope
 ### Completed
 - Register domain name
-
+- First geo API with country and ASN data
+- Add sanctions table
+- favicon.ico
 ### Working on
 - Bootstrapping repo on Github
--  First geo API with country and ASN data
--  Add sanctions table
--  favicon.ico
 ### Will Do
+- fix health check to work on a live table
+- clean up csv files after import
 - Bootstrapping image on Docker Hub
 - One region built
 - Multi-region
@@ -34,10 +35,16 @@ Here are the goals I have for this project. If you would like to encourage me to
 - Add Zscaler published POP addresses spaces
 - Add Broadcom published POP addresses spaces
 - Add ASN data
+- WAF API protection
 ### Might Do
+- MS Azure customer space
+- GCP customer space
+- AWC customer space
+- Proxy list ingest
 - Threat Intel enrichment
   - Proxy detection
   - Reputation/blacklists
+- 
 - Might migrate to Azure or GCP if it becomes an interesting challenge
 ## Out of Scope
 - Amazon Elastic Kubernetes Service (EKS) doesn't meet my criteria for integrating a new technology for me. I have done other Kubernetes labs ([here](https://www.unclenuc.com/lab:kubernetes_app:start) and [here](https://www.unclenuc.com/lab:stack_of_nucs:start)).
