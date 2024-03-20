@@ -8,7 +8,10 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 # Copy application files
-COPY app.py schema.sql start.sh countries.csv sanctions.csv favicon.ico ./
+COPY app.py schema.sql start.sh countries.csv sanctions.csv ./
+
+# Copy the 'static' content folder
+COPY static ./static 
 
 # Set up MySQL (wait/configuration) - Assuming docker-entrypoint-initdb.d is supported
 COPY schema.sql /docker-entrypoint-initdb.d/schema.sql 
