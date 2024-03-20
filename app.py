@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request, send_from_directory 
+from flask import Flask, jsonify, request, send_from_directory
+from flask_cors import CORS
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 from flaskext.mysql import MySQL
 import ipaddress
@@ -6,6 +7,7 @@ import time
 import os
 from datetime import timedelta
 
+# App Setup
 app = Flask(__name__)
 mysql = MySQL()
 
@@ -31,6 +33,9 @@ def hello_world():
     user_count = cursor.execute("SELECT COUNT(*) FROM users")
     user_count_result = cursor.fetchone()[0]  # Fetch the count
     return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
+
+# CORS setup
+CORS(app) # enable CORS for all routes
 
 # Favicon route
 @app.route('/favicon.ico')
