@@ -66,9 +66,10 @@ def get_ip():
             SELECT g.country, c.Name AS country_long
             FROM geo g
             LEFT JOIN countries c ON g.country = c.Code
-            LEFT JOIN sanctions s ON c.Code = s.Country  
+            LEFT JOIN sanctions s ON c.Code = s.Country
             WHERE g.start <= %s AND g.end >= %s
         """, (ip_decimal, ip_decimal))
+        print("Executed query:", cursor._last_executed)  # Print the query AFTER execution
         result = cursor.fetchone()
         if result:
             country = result[0]
