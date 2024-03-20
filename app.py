@@ -120,15 +120,12 @@ def get_ip():
 def login():
     if not request.is_json or not "api_key" in request.json:
         return jsonify({"error": "Invalid request"}), 400
-
     api_key = request.json["api_key"]
-
     try:
         cursor = mysql.connect().cursor()
         query = "SELECT guuid FROM api_keys WHERE guuid = %s AND valid IS TRUE"
         cursor.execute(query, (api_key,))
         result = cursor.fetchone()
-
         if result and result[0] and result[0] == api_key:
             access_token = create_access_token(identity=api_key) 
             return jsonify(access_token=access_token), 200
