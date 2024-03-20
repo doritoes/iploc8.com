@@ -16,13 +16,6 @@ app.config['MYSQL_DATABASE_DB'] = 'mydatabase'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
-# Sample Model (You can keep your existing User model if you have one)
-class User(object):  
-    def __init__(self, id, name, email):
-        self.id = id
-        self.name = name
-        self.email = email
-
 # Sample route
 @app.route('/')
 def hello_world():
@@ -30,6 +23,12 @@ def hello_world():
     user_count = cursor.execute("SELECT COUNT(*) FROM users")
     user_count_result = cursor.fetchone()[0]  # Fetch the count
     return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
+
+# Favicon route
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(app.root_path,
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 # Healthcheck route
 @app.route('/healthcheck')
