@@ -125,7 +125,7 @@ def login():
 
     try:
         cursor = mysql.connect().cursor()
-        query = "SELECT guuid FROM keys WHERE guuid = %s AND valid IS TRUE"
+        query = "SELECT guuid FROM api_keys WHERE guuid = %s AND valid IS TRUE"
         cursor.execute(query, (api_key,))
         result = cursor.fetchone()
 
