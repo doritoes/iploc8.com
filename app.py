@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, send_from_directory 
+from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 from flaskext.mysql import MySQL
 import ipaddress
 import time
@@ -15,6 +16,10 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'your_password'
 app.config['MYSQL_DATABASE_DB'] = 'mydatabase'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
+
+# Configure JWT-Extended
+app.config["JWT_SECRET_KEY"] = "your-strong-secret-key"  # Replace with a secure secret key
+jwt = JWTManager(app)  
 
 # Sample route
 @app.route('/')
@@ -102,6 +107,32 @@ def get_ip():
     if sanction:
         output_data['sanction'] = sanction
     return jsonify(output_data)
+
+@app.route("/api/v2/login", methods=["POST"])
+def login():
+    # For now, assume username/password are checked (replace this!)
+    if not request.is_json or not "username" in request.json:
+        return jsonify({"error": "Invalid request"}), 400 
+
+    username = request.json["username"]
+
+    # Generate a JWT token (simplistic example)
+    access_token = create_access_token(identity=username) 
+    return jsonify(access_token=access_token), 200
+
+@app.route('/api/v2/ip', methods=["GET", "POST"])
+@jwt_required()
+def ip_info():
+    current_user = get_jwt_identity()  # Get authenticated user identity
+    if not request.is_json or not "ip" in request.json: 
+        return jsonify({"error": "Invalid request"}), 400
+
+    user_ip = request.json["ip"]
+    
+    # Placeholder: Replace with your actual IP lookup logic
+    ip_data = {"ip": user_ip, "location": "Sample Location"}  
+
+    return jsonify(ip_data), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
