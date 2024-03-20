@@ -66,12 +66,14 @@ def get_ip():
             SELECT g.country, c.Name AS country_long
             FROM geo g
             LEFT JOIN countries c ON g.country = c.Code
+            LEFT JOIN sanctions s ON c.Code = s.Country  
             WHERE g.start <= %s AND g.end >= %s
         """, (ip_decimal, ip_decimal))
         result = cursor.fetchone()
         if result:
             country = result[0]
             country_long = result[1] if result[1] else "Unknown"  # Handle missing country_long
+            sanction = result[2] if result[2] else ""
         else:
             country = "Unknown"
             country_long = "Unknown"
@@ -82,18 +84,18 @@ def get_ip():
         """, (ip_decimal, ip_decimal))
         asn_result = cursor.fetchone()
         isp = asn_result[0] if asn_result else "Unknown" 
-
-        isp = asn_result[0] if asn_result else "Unknown" 
     except Exception as e:
         print(f"Error encountered: {e}")
-        return jsonify({'error': 'Database query failed'}), 500 
-    return jsonify({
+        return jsonify({'error': 'Database query failed'}), 500
+    output_data = {  # Construct a dictionary for flexible modification
         'ip': ip_address,
-        'decimal': ip_decimal,
         'country': country,
         'country_long': country_long,
         'isp': isp
-    })
+    }
+    if sanction:
+        output_data['sanction'] = sanction
+    return jsonify(output_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
