@@ -159,8 +159,6 @@ def ip_info():
         ip_decimal = int(ip)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400 
-
-    # Placeholder: Replace with your actual IP lookup logic
     try:
         cursor = mysql.connect().cursor()
         cursor.execute("""
@@ -183,6 +181,7 @@ def ip_info():
             country = "Unidentified"
             country_long = "Unidentified"
             state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
+        """
         cursor.execute("""
             SELECT description 
             FROM asn 
@@ -190,6 +189,8 @@ def ip_info():
         """, (ip_decimal, ip_decimal))
         asn_result = cursor.fetchone()
         isp = asn_result[0] if asn_result else "Unknown"
+        """
+        isp = "disabled for testing"
     except Exception as e:
         print(f"Error encountered: {e}")
     ip_data = {
