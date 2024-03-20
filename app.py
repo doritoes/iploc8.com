@@ -35,7 +35,7 @@ def hello_world():
     return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
 
 # CORS setup
-CORS(app) # enable CORS for all routes
+CORS(app, origins=["http://localhost:5000", "http://localhost:8080", "https://ipdice.com", "https://www.ipdice.com"]) 
 
 # Favicon route
 @app.route('/favicon.ico')
