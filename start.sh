@@ -7,6 +7,7 @@ until mysql -uroot -p"${MYSQL_ROOT_PASSWORD}" &> /dev/null; do
   sleep 2
 done
 echo >&2 "MySQL is up - starting data import"
+# Import local files
 echo >&2 "importing countries.csv"
 mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
@@ -16,7 +17,7 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
         ENCLOSED BY '\"'
         LINES TERMINATED BY '\n'
         (Name, Code);
-"
+" && rm /app/countries.csv
 mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
     LOAD DATA LOCAL INFILE '/app/sanctions.csv'
@@ -24,8 +25,8 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
         FIELDS TERMINATED BY ','
         LINES TERMINATED BY '\n'
         IGNORE 1 LINES;
-"
-
+" && rm /app/sanctions.csv
+# Import external files
 echo >&2 "Downloading ip-location-db files..."
 curl -s -o iptoasn-asn-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn/iptoasn-asn-ipv4-num.csv
 curl -s -o geo-whois-asn-country-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/geo-whois-asn-country/geo-whois-asn-country-ipv4-num.csv
@@ -38,8 +39,7 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     FIELDS TERMINATED BY ',' 
     LINES TERMINATED BY '\n'
     (start, end, asn, description); 
-"
-rm /app/iptoasn-asn-ipv4-num.csv
+" && rm /app/iptoasn-asn-ipv4-num.csv
 echo >&2 "importing geo-whois-asn-country-ipv4-num.csv"
 mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
@@ -48,19 +48,16 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     FIELDS TERMINATED BY ',' 
     LINES TERMINATED BY '\n'
     (start, end, country); 
-"
-rm /app/geo-whois-asn-country-ipv4-num.csv
-echo >&2 "unpacking dbip-city-ipv4-num.csv.gz"
-gunzip /app/dbip-city-ipv4-num.csv.gz
-echo >&2 "importing dbip-city-ipv4-num.csv"
-mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+" && rm /app/geo-whois-asn-country-ipv4-num.csv
+echo >&2 "unpacking and importing dbip-city-ipv4-num.csv.gz"
+gunzip /app/dbip-city-ipv4-num.csv.gz && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
     LOAD DATA LOCAL INFILE '/app/dbip-city-ipv4-num.csv'
     INTO TABLE city
     FIELDS TERMINATED BY ',' 
     LINES TERMINATED BY '\n'
     (start, end, country_code, state1, state2, city, postcode, latitude, longitude, timezone);
-"
-rm /app/dbip-city-ipv4-num.csv
+" && rm /app/dbip-city-ipv4-num.csv
+# Start the app
 echo >&2 "download complete - starting app"
 python3 app.py
