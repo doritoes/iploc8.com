@@ -9,20 +9,42 @@
     <div id="ip-data"></div>
 
     <script>
-        $(document).ready(function() {
-            const apiUrl = "http://localhost:5000/api/v1/ip";
+$(document).ready(function() {
+    const apiUrl = "http://localhost:5000"; // Base URL for your Flask API
 
-            $.ajax({
-                url: apiUrl,
-                method: "GET", // Or "POST" if your API requires it
-                success: function(data) {
-                    $("#ip-data").html(JSON.stringify(data, null, 2)); // Pretty-print JSON
-                },
-                error: function(error) {
-                    $("#ip-data").html("Error fetching IP data");
-                }
-            });
-        }); 
+    // Step 1: Fetch client IP from ipify
+    $.getJSON("https://api.ipify.org?format=json", function(data) {
+        const clientIp = data.ip;
+
+        // Step 2: Login to get JWT Token
+        $.ajax({
+            url: apiUrl + "/api/v2/login",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ username: "your_username" }),  
+            success: function(response) {
+                const jwtToken = response.access_token; 
+
+                // Step 3: Fetch IP data using the JWT
+                $.ajax({
+                    url: apiUrl + "/api/v2/ip?ip=" + clientIp, 
+                    method: "GET",
+                    headers: { Authorization: "Bearer " + jwtToken },
+                    success: function(ipData) {
+                        // Display IP data 
+                        $("#ip-data").html(JSON.stringify(ipData, null, 2)); 
+                    },
+                    error: function(error) {
+                        $("#ip-data").html("Error fetching IP data");
+                    }
+                });
+            },
+            error: function(error) {
+                $("#ip-data").html("Error during login");
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
