@@ -190,7 +190,8 @@ def ip_info():
             cursor.close()  # Ensure cursor is closed
     isp = "disabled"
     ip_data = {
-        "ip": user_ip
+        "ip": user_ip,
+        "city": city
     }
     return jsonify(ip_data), 200
 
