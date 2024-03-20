@@ -159,45 +159,9 @@ def ip_info():
         ip_decimal = int(ip)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400 
-    try:
-        cursor = mysql.connect().cursor()
-        cursor.execute("""
-            SELECT c.country_code, c.state1, c.state2, c.city, c.postcode, c.latitude, c.longitude, c.timezone)
-            FROM city c
-            WHERE c.start <= %c AND g.end >= %s
-        """, (ip_decimal, ip_decimal))
-        result = cursor.fetchone()
-        if result:
-            country = result[0] if result[0] else "Unknown"
-            country_long = result[1] if result[1] else "Unknown"
-            state1 = result[2] if result[2] else ""
-            state2 = result[3] if result[3] else ""
-            city = result[4] if result[4] else ""
-            postcode = result[5] if result[5] else ""
-            latitude = result[6] if result[6] else ""
-            longitude = result [7] if result[7] else ""
-            timezone = result[8] if result[8] else ""
-        else:
-            country = "Unidentified"
-            country_long = "Unidentified"
-            state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
-        isp = "disabled for testing"
-    except Exception as e:
-        print(f"Error encountered: {e}")
     ip_data = {
-        "ip": user_ip,
-        "city": city,
-        "state": state1,
-        "state2": state2,
-        "country": country,
-        "country_long": country_long,
-        "postcode": postcode,
-        "latitude": latitude,
-        "longitude": longitude,
-        "timezone": timezone,
-        "isp": isp,
-        "attribution": "db-ip.com",
-        "link": "https://db-ip.com/"
+        "ip": "hi",
+        "isp": "there"
     } 
     return jsonify(ip_data), 200
 
