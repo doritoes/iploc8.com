@@ -22,17 +22,17 @@ Here are the goals I have for this project. If you would like to encourage me to
 
 ### Working on
 - Bootstrapping repo on Github
+-  First geo API with country and ASN data
+-  Add sanctions table
+-  favicon.ico
 ### Will Do
 - Bootstrapping image on Docker Hub
-- Dummy API
-- First geo API
 - One region built
 - Multi-region
 - Add MS published address spaces
 - Add Tor published address spaces
 - Add Zscaler published POP addresses spaces
 - Add Broadcom published POP addresses spaces
-- Add OFAC flag
 - Add ASN data
 ### Might Do
 - Threat Intel enrichment
