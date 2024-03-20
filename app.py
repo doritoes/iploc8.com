@@ -182,6 +182,7 @@ def ip_info():
         else:
             country = "Unidentified"
             country_long = "Unidentified"
+            state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
     except Exception as e:
         print(f"Error encountered: {e}")
     ip_data = {
