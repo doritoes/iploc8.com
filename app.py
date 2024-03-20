@@ -171,17 +171,15 @@ def ip_info():
         result = cursor.fetchone()
         if result:
             country = result[0] if result[0] else "Unknown"
-            country_long = result[1] if result[1] else "Unknown"
-            state1 = result[2] if result[2] else ""
-            state2 = result[3] if result[3] else ""
-            city = result[4] if result[4] else ""
-            postcode = result[5] if result[5] else ""
-            latitude = result[6] if result[6] else ""
-            longitude = result [7] if result[7] else ""
-            timezone = result[8] if result[8] else ""
+            state1 = result[1] if result[1] else ""
+            state2 = result[2] if result[2] else ""
+            city = result[3] if result[3] else ""
+            postcode = result[4] if result[4] else ""
+            latitude = result[5] if result[5] else ""
+            longitude = result [6] if result[6] else ""
+            timezone = result[7] if result[7] else ""
         else:
             country = "Unidentified"
-            country_long = "Unidentified"
             state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
     except Exception as e:
         print(f"Error encountered: {e}")
