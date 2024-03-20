@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My IP Info</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>IP Information</h1>
+    <div id="ip-data"></div>
+
+    <script>
+        $(document).ready(function() {
+            const apiUrl = "http://localhost:5000/api/v1/ip";
+
+            $.ajax({
+                url: apiUrl,
+                method: "GET", // Or "POST" if your API requires it
+                success: function(data) {
+                    $("#ip-data").html(JSON.stringify(data, null, 2)); // Pretty-print JSON
+                },
+                error: function(error) {
+                    $("#ip-data").html("Error fetching IP data");
+                }
+            });
+        }); 
+    </script>
+</body>
+</html>
