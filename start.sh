@@ -58,7 +58,8 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     LOAD DATA LOCAL INFILE '/app/dbip-city-ipv4-num.csv'
     INTO TABLE city
     FIELDS TERMINATED BY ',' 
-    LINES TERMINATED BY '\n';
+    LINES TERMINATED BY '\n'
+    (start, end, country_code, state1, state2, city, postcode, latitude, longitude, timezone);
 "
 rm /app/dbip-city-ipv4-num.csv
 echo >&2 "download complete - starting app"
