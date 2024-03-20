@@ -57,6 +57,11 @@ def healthcheck():
     else:
         return jsonify({'status': 'OK'})
 
+# Test page route
+@app.route('/test.html')
+def test_page():
+    return send_from_directory('static', 'test.html') 
+
 # API Route (/api/v1/ip)
 @app.route('/api/v1/ip')
 def get_ip():
