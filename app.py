@@ -27,8 +27,7 @@ def hello_world():
 # Favicon route
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(app.root_path,
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory('static','favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 # Healthcheck route
 @app.route('/healthcheck')
