@@ -4,6 +4,7 @@ from flaskext.mysql import MySQL
 import ipaddress
 import time
 import os
+from datetime import timedelta
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -19,7 +20,8 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
 # Configure JWT-Extended
-app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY") 
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
 jwt = JWTManager(app)  
 
 # Sample route
