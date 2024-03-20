@@ -118,14 +118,13 @@ def get_ip():
 
 @app.route("/api/v2/login", methods=["POST"])
 def login():
-    # For now, assume username/password are checked (replace this!)
-    if not request.is_json or not "username" in request.json:
-        return jsonify({"error": "Invalid request"}), 400 
+    if not request.is_json or not "api_key" in request.json:
+        return jsonify({"error": "Invalid request"}), 400
 
-    username = request.json["username"]
+    api_key = request.json["api_key"]
 
-    # Generate a JWT token (simplistic example)
-    access_token = create_access_token(identity=username) 
+    # No need to validate the api_key for this immediate change
+    access_token = create_access_token(identity=api_key) 
     return jsonify(access_token=access_token), 200
 
 @app.route('/api/v2/ip', methods=["GET", "POST"])
