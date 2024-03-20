@@ -53,5 +53,13 @@ rm /app/geo-whois-asn-country-ipv4-num.csv
 echo >&2 "unpacking dbip-city-ipv4-num.csv.gz"
 gunzip /app/dbip-city-ipv4-num.csv.gz
 echo >&2 "importing dbip-city-ipv4-num.csv"
+mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+    USE mydatabase;
+    LOAD DATA LOCAL INFILE '/app/dbip-city-ipv4-num.csv'
+    INTO TABLE city
+    FIELDS TERMINATED BY ',' 
+    LINES TERMINATED BY '\n';
+"
+rm /app/dbip-city-ipv4-num.csv
 echo >&2 "download complete - starting app"
 python3 app.py
