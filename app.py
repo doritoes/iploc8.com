@@ -197,10 +197,7 @@ def ip_info():
         "postcode": postcode,
         "latitude": latitude,
         "longitude": longitude,
-        "timezone": timezone,
-        "isp": isp,
-        "attribution": "db-ip.com",
-        "link": "https://db-ip.com/"
+        "timezone": timezone
     }
     return jsonify(ip_data), 200
 
