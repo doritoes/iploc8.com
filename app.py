@@ -169,6 +169,12 @@ def ip_info():
             WHERE start <= %s AND end >= %s
         """, (ip_decimal, ip_decimal))
         result = cursor.fetchone()
+        if result:
+            country = result[0] if result[0] else "Unknown"
+            country_long = result[1] if result[1] else "Unknown"
+        else:
+            country = "Unidentified"
+            country_long = "Unidentified"
     except Exception as e:
         print(f"Error encountered: {e}")
     ip_data = {
