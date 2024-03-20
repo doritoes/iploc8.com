@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS sanctions (
     Sanction VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE city (
+CREATE TABLE IF NOT EXISTS city (
     id INT AUTO_INCREMENT PRIMARY KEY,
     start BIGINT NOT NULL,
     end BIGINT NOT NULL,
@@ -52,10 +52,10 @@ CREATE TABLE city (
     INDEX (end)
 );
 
-CREATE TABLE keys (
+CREATE TABLE IF NOT EXISTS api_keys (
     guuid VARCHAR(48) PRIMARY KEY,
     valid BOOLEAN DEFAULT TRUE
 );
 
-INSERT INTO keys (guuid, valid) 
+INSERT INTO api_keys (guuid, valid) 
 VALUES ('e95b186d-3677-4466-9cb2-20a549ab1d85', TRUE); 
