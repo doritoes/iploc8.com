@@ -7,6 +7,9 @@ COPY requirements.txt ./
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
+# Set the JWT secret key 
+ENV JWT_SECRET_KEY $(openssl rand -hex 32) # Generate a random secre
+
 # Copy application files
 COPY app.py schema.sql start.sh countries.csv sanctions.csv ./
 
