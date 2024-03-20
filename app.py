@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory 
 from flaskext.mysql import MySQL
 import ipaddress
 import time
