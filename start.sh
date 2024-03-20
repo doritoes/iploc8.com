@@ -17,6 +17,15 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
         LINES TERMINATED BY '\n'
         (Name, Code);
 "
+mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+    USE mydatabase;
+    LOAD DATA LOCAL INFILE '/app/sanctions.csv'
+        INTO TABLE sanctions
+        FIELDS TERMINATED BY ','
+        LINES TERMINATED BY '\n'
+        IGNORE 1 LINES;
+"
+
 echo >&2 "Downloading ip-location-db files..."
 curl -s -o iptoasn-asn-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn/iptoasn-asn-ipv4-num.csv
 curl -s -o geo-whois-asn-country-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/geo-whois-asn-country/geo-whois-asn-country-ipv4-num.csv
