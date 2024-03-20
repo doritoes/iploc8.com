@@ -181,12 +181,18 @@ def ip_info():
         else:
             country = "Unidentified"
             state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
+        cursor.execute("""
+            SELECT description 
+            FROM asn 
+            WHERE start <= %s AND end >= %s
+        """, (ip_decimal, ip_decimal))
+        asn_result = cursor.fetchone()
+        isp = asn_result[0] if asn_result else "Unidentified"
     except Exception as e:
         print(f"Error encountered: {e}")
     finally:
         if cursor:
             cursor.close()  # Ensure cursor is closed
-    isp = "disabled"
     ip_data = {
         "ip": user_ip,
         "city": city,
