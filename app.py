@@ -191,7 +191,9 @@ def ip_info():
     isp = "disabled"
     ip_data = {
         "ip": user_ip,
-        "city": city
+        "city": city,
+        "state": state1,
+        "state2": state2
     }
     return jsonify(ip_data), 200
 
