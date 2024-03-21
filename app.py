@@ -164,22 +164,31 @@ def ip_info():
     try:
         cursor = mysql.connect().cursor()
         cursor.execute("""
-            SELECT country_code, state1, state2, city, postcode, latitude, longitude, timezone
-            FROM city
+            SELECT g.country, c.Name AS country_long
+            FROM geo g
+            LEFT JOIN countries c ON g.country = c.Code
+            WHERE g.start <= %s AND g.end >= %s
+        """, (ip_decimal, ip_decimal))
+        cursor.execute("""
+            SELECT c.country_code, g.Name AS country_long, c.state1, c.state2, c.city, c.postcode, c.latitude, c.longitude, c.timezone
+            FROM city c
+            LEFT JOINT countries g on c.country_code = g.Code
             WHERE start <= %s AND end >= %s
         """, (ip_decimal, ip_decimal))
         result = cursor.fetchone()
         if result:
             country = result[0] if result[0] else "Unknown"
-            state1 = result[1] if result[1] else ""
-            state2 = result[2] if result[2] else ""
-            city = result[3] if result[3] else ""
-            postcode = result[4] if result[4] else ""
-            latitude = result[5] if result[5] else ""
-            longitude = result [6] if result[6] else ""
-            timezone = result[7] if result[7] else ""
+            country_long = result[1] if result[1] else "Unknown"
+            state1 = result[2] if result[2] else ""
+            state2 = result[3] if result[3] else ""
+            city = result[4] if result[4] else ""
+            postcode = result[5] if result[5] else ""
+            latitude = result[6] if result[6] else ""
+            longitude = result [7] if result[7] else ""
+            timezone = result[8] if result[8] else ""
         else:
             country = "Unidentified"
+            country_long = "Unidentified"
             state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
         cursor.execute("""
             SELECT description 
@@ -199,6 +208,7 @@ def ip_info():
         "state": state1,
         "state2": state2,
         "country": country,
+        "country_long": country_long,
         "postcode": postcode,
         "latitude": latitude,
         "longitude": longitude,
