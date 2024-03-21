@@ -164,15 +164,9 @@ def ip_info():
     try:
         cursor = mysql.connect().cursor()
         cursor.execute("""
-            SELECT g.country, c.Name AS country_long
-            FROM geo g
-            LEFT JOIN countries c ON g.country = c.Code
-            WHERE g.start <= %s AND g.end >= %s
-        """, (ip_decimal, ip_decimal))
-        cursor.execute("""
             SELECT c.country_code, g.Name AS country_long, c.state1, c.state2, c.city, c.postcode, c.latitude, c.longitude, c.timezone
             FROM city c
-            LEFT JOINT countries g on c.country_code = g.Code
+            LEFT JOIN countries g on c.country_code = g.Code
             WHERE start <= %s AND end >= %s
         """, (ip_decimal, ip_decimal))
         result = cursor.fetchone()
