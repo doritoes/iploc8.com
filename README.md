@@ -7,9 +7,13 @@ After building a few IP address look up sites on different technologies, I wante
 The goal is to leverage repositories with geo-location data together with published IP address ranges to provide some unique perspective. There are many other API services that do enriched geo-location for a fee. However, the goal is this project is to develop the concept of what is possible independent of these services.
 
 This demonstration site has the following features:
+* Serverless computing on Fargate
 * Small container based on Alpine Linux
 * Python Flask with MySQL back-end database
-* Serverless computing on Fargate
+* API design examples
+  * unrestricted
+  * JWT with API keys
+  * CloudFront WAP protections
 * Gradually release new experiences to the web application
 * Demonstrate global autoscaling container applications without breaking the bank (don't want to cost too much for this free site)
 
@@ -20,14 +24,13 @@ Here are the goals I have for this project. If you would like to encourage me to
 ### Completed
 - Register domain name
 - First geo API with country and ASN data
+- Second geo API with city data, secured with API key and JWT tokens
 - Add sanctions table
 - favicon.ico
 ### Working on
 - Bootstrapping repo on Github
-### Will Do
 - fix health check to work on a live table
-- clean up csv files after import
-- move favicon.ico file(s) to /app/static/
+### Will Do
 - bootstrapping image on Docker Hub
 - one region built
 - multi-region
@@ -49,7 +52,7 @@ Here are the goals I have for this project. If you would like to encourage me to
 - Amazon Elastic Kubernetes Service (EKS) doesn't meet my criteria for integrating a new technology for me. I have done other Kubernetes labs ([here](https://www.unclenuc.com/lab:kubernetes_app:start) and [here](https://www.unclenuc.com/lab:stack_of_nucs:start)).
 
 # Instructions
-:warning: If you are using Windows, you need to do this in a WSL (Windows Subsystem for Linux) window. Otherwise, you will have line-ending issues with the scripts and other text files.
+:warning: If you are using Windows, you need to do this in a WSL (Windows Subsystem for Linux) window. Otherwise, you will have line ending issues with the scripts and other text files.
 
 1. git clone https://github.com/doritoes/iploc8.com
 2. cd iploc8.com
