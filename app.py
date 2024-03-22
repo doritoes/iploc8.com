@@ -26,17 +26,14 @@ app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
 jwt = JWTManager(app)  
 
-# Sample route
-@app.route('/')
-def hello_world():
-    cursor = mysql.connect().cursor()
-    user_count = cursor.execute("SELECT COUNT(*) FROM users")
-    user_count_result = cursor.fetchone()[0]  # Fetch the count
-    return jsonify({'message': 'Hello from Flask and MySQL!', 'user_count': user_count_result})
-
 # CORS setup
 CORS(app, origins=["http://localhost:5000", "http://localhost:8080", "https://ipdice.com", "https://www.ipdice.com"]) 
 
+# Home page
+@app.route('/')
+def welcome_home():
+    return send_from_directory('static', 'index.html') 
+    
 # Favicon route
 @app.route('/favicon.ico')
 def favicon():
