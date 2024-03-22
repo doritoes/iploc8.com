@@ -233,8 +233,10 @@ def ip_info():
         "longitude": longitude,
         "timezone": timezone,
         "isp": isp,
-        "attribution": "db-ip.com",
-        "link": "https://db-ip.com/"
+        "attribution": [
+            {"name": "db-ip.com", "link": "https://db-ip.com/"},
+            {"name": "RouteViews", "link": "https://www.routeviews.org/routeviews/"}
+        ]
     }
     return jsonify(ip_data), 200
 
