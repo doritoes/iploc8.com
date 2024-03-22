@@ -62,5 +62,18 @@ $(document).ready(function() {
       console.log("Total Response Time:", totalResponseTime.toFixed(2), "ms");
   });
   </script>
+  <script>
+    window.addEventListener('load', function() {
+      function attemptHighAccuracyCheck() {
+        const options = { timeout: 500, enableHighAccuracy: true }; // Short timeout
+        navigator.geolocation.getCurrentPosition(
+          () => console.log("High accuracy *might* be available"), 
+          () => console.log("High accuracy location likely unavailable"),  
+          options
+        );
+      }
+      attemptHighAccuracyCheck(); // Call the function on page load
+  });
+  </script>
 </body>
 </html>
