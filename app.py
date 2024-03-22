@@ -50,13 +50,34 @@ def robots():
 # Healthcheck route
 @app.route('/healthcheck')
 def healthcheck():
+    # Database health check
     try:
         cursor = mysql.connect().cursor()
-        user_count = cursor.execute("SELECT COUNT(*) FROM users")
-        user_count_result = cursor.fetchone()[0]  # Fetch the count
+        geo_count = cursor.execute("SELECT COUNT(*) FROM geo")
+        geo_count_result = cursor.fetchone()[0]  # Fetch the count
     except Exception as e:
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
+    if geo_count_result == 0:
+        return jsonify({'error': 'Empty table'}), 500  # Return HTTP 500
+    try:
+        cursor = mysql.connect().cursor()
+        asn_count = cursor.execute("SELECT COUNT(*) FROM asn")
+        asn_count_result = cursor.fetchone()[0]  # Fetch the count
+    except Exception as e:
+        print(f"Error encountered: {e}") # Log error
+        return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
+    if asn_count_result == 0:
+        return jsonify({'error': 'Empty table'}), 500  # Return HTTP 500
+    try:
+        cursor = mysql.connect().cursor()
+        city_count = cursor.execute("SELECT COUNT(*) FROM city")
+        city_count_result = cursor.fetchone()[0]  # Fetch the count
+    except Exception as e:
+        print(f"Error encountered: {e}") # Log error
+        return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
+    if city_count_result == 0:
+        return jsonify({'error': 'Empty table'}), 500  # Return HTTP 500
     # Uptime check
     uptime_seconds = time.time() - container_start_time
     uptime_hours = uptime_seconds / 3600
