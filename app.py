@@ -66,7 +66,8 @@ def healthcheck():
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
     if geo_count_result == 0:
-        return jsonify({'error': 'Empty table'}), 500  # Return HTTP 500
+        return jsonify({'error': 'Empty table geo'}), 500  # Return HTTP 500
+
     try:
         cursor = mysql.connect().cursor()
         asn_count = cursor.execute("SELECT COUNT(*) FROM asn")
@@ -74,6 +75,9 @@ def healthcheck():
     except Exception as e:
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
+    if asn_count_result == 0:
+        return jsonify({'error': 'Empty table asn'}), 500  # Return HTTP 500
+
     try:
         cursor = mysql.connect().cursor()
         isp_count = cursor.execute("SELECT COUNT(*) FROM isp")
@@ -82,7 +86,8 @@ def healthcheck():
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
     if isp_count_result == 0:
-        return jsonify({'error': 'Empty table'}), 500  # Return HTTP 500
+        return jsonify({'error': 'Empty table isp'}), 500  # Return HTTP 500
+
     try:
         cursor = mysql.connect().cursor()
         city_count = cursor.execute("SELECT COUNT(*) FROM city")
@@ -91,7 +96,8 @@ def healthcheck():
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
     if city_count_result == 0:
-        return jsonify({'error': 'Empty table'}), 500  # Return HTTP 500
+        return jsonify({'error': 'Empty table city'}), 500  # Return HTTP 500
+
     # Uptime check
     uptime_seconds = time.time() - container_start_time
     uptime_hours = uptime_seconds / 3600
