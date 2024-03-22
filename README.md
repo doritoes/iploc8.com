@@ -101,3 +101,5 @@ Here are the goals I have for this project. If you would like to encourage me to
     - https://config.zscaler.com/api/zscaler.net/hubs/cidr/json/recommended
 - https://github.com/TheSpeedX/PROXY-List
 - TOR exit nodes
+- Azure IP ranges and service tags - public cloud
+  - https://www.microsoft.com/en-us/download/details.aspx?id=56519
