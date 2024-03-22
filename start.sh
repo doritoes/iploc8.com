@@ -58,6 +58,7 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     INTO TABLE isp
     FIELDS TERMINATED BY ',' 
     LINES TERMINATED BY '\n'
+    ENCLOSED BY '\"'
     (start, end, asn, description); 
 " && rm /app/asn-ipv4-num.csv
 
