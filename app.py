@@ -3,9 +3,19 @@ from flask_cors import CORS
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 from flaskext.mysql import MySQL
 import ipaddress
+import socket
 import time
 import os
 from datetime import timedelta
+
+def get_reverse_dns(ip_address, timeout=5):
+    try:
+        hostname, _, _ = socket.gethostbyaddr(ip_address)
+        return hostname
+    except socket.timeout:
+        return None
+    except socket.herror:
+        return None
 
 # App Setup
 app = Flask(__name__)
@@ -221,6 +231,7 @@ def ip_info():
     finally:
         if cursor:
             cursor.close()  # Ensure cursor is closed
+    reverse = get_reverse_dns(user_ip)
     ip_data = {
         "ip": user_ip,
         "city": city,
@@ -233,6 +244,7 @@ def ip_info():
         "longitude": longitude,
         "timezone": timezone,
         "isp": isp,
+        "reverse": reverse,
         "attribution": [
             {"name": "db-ip.com", "link": "https://db-ip.com/"},
             {"name": "RouteViews", "link": "https://www.routeviews.org/routeviews/"}
