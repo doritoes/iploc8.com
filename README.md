@@ -86,7 +86,7 @@ Here are the goals I have for this project. If you would like to encourage me to
   - countries.csv was last refreshed from here 3/19/2024
 - https://github.com/sapics/ip-location-db
   - this data is loaded on each container initilization
-## Find More ##
+## Find Out More
 - https://iptoasn.com/
 - https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide
   - https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
@@ -103,3 +103,9 @@ Here are the goals I have for this project. If you would like to encourage me to
 - TOR exit nodes
 - Azure IP ranges and service tags - public cloud
   - https://www.microsoft.com/en-us/download/details.aspx?id=56519
+- AWS EC2
+  - https://docs.aws.amazon.com/vpc/latest/userguide/aws-ip-ranges.html
+  - service is "EC2"
+- https://www.abuseipdb.com/
+- https://www.projecthoneypot.org/list_of_ips.php
+- https://www.spamhaus.org/ip-reputation/
