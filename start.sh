@@ -28,10 +28,10 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
 " && rm /app/sanctions.csv
 # Import external files
 echo >&2 "Downloading ip-location-db files..."
-curl -s -o iptoasn-asn-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn/iptoasn-asn-ipv4-num.csv
-curl -s -o geo-whois-asn-country-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/geo-whois-asn-country/geo-whois-asn-country-ipv4-num.csv
-curl -s -o asn-ipv4-num.csv https://cdn.jsdelivr.net/npm/@ip-location-db/asn/asn-ipv4-num.csv
-curl -s -L -o dbip-city-ipv4-num.csv.gz https://unpkg.com/@ip-location-db/dbip-city/dbip-city-ipv4-num.csv.gz
+curl -v -s -o iptoasn-asn-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn/iptoasn-asn-ipv4-num.csv >&2
+curl -v -s -o geo-whois-asn-country-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/geo-whois-asn-country/geo-whois-asn-country-ipv4-num.csv >&2
+curl -v -s -o asn-ipv4-num.csv https://cdn.jsdelivr.net/npm/@ip-location-db/asn/asn-ipv4-num.csv >&2
+curl -v -s -L -o dbip-city-ipv4-num.csv.gz https://unpkg.com/@ip-location-db/dbip-city/dbip-city-ipv4-num.csv.gz >&2
 echo >&2 "importing iptoasn-asn-ipv4-num.csv"
 mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
