@@ -231,7 +231,7 @@ def ip_info():
     finally:
         if cursor:
             cursor.close()  # Ensure cursor is closed
-    reverse = get_reverse_dns(user_ip)
+    reverse = get_reverse_dns(user_ip, 4)
     ip_data = {
         "ip": user_ip,
         "city": city,
