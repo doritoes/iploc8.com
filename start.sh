@@ -56,9 +56,9 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
     LOAD DATA LOCAL INFILE '/app/asn-ipv4-num.csv'
     INTO TABLE isp
-    FIELDS TERMINATED BY ',' 
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '\"'
     LINES TERMINATED BY '\n'
-    ENCLOSED BY '\\"'
     (start, end, asn, description); 
 " && rm /app/asn-ipv4-num.csv
 
