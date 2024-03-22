@@ -30,6 +30,7 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
 echo >&2 "Downloading ip-location-db files..."
 curl -s -o iptoasn-asn-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn/iptoasn-asn-ipv4-num.csv
 curl -s -o geo-whois-asn-country-ipv4-num.csv  https://cdn.jsdelivr.net/npm/@ip-location-db/geo-whois-asn-country/geo-whois-asn-country-ipv4-num.csv
+curl -s -o asn-ipv4-num.csv https://cdn.jsdelivr.net/npm/@ip-location-db/asn/asn-ipv4-num.csv
 curl -s -L -o dbip-city-ipv4-num.csv.gz https://unpkg.com/@ip-location-db/dbip-city/dbip-city-ipv4-num.csv.gz
 echo >&2 "importing iptoasn-asn-ipv4-num.csv"
 mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
@@ -49,6 +50,17 @@ mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     LINES TERMINATED BY '\n'
     (start, end, country); 
 " && rm /app/geo-whois-asn-country-ipv4-num.csv
+
+echo >&2 "importing asn-ipv4-num.csv"
+mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+    USE mydatabase;
+    LOAD DATA LOCAL INFILE '/app/asn-ipv4-num.csv'
+    INTO TABLE isp
+    FIELDS TERMINATED BY ',' 
+    LINES TERMINATED BY '\n'
+    (start, end, asn, description); 
+" && rm /app/asn-ipv4-num.csv
+
 echo >&2 "unpacking and importing dbip-city-ipv4-num.csv.gz"
 gunzip /app/dbip-city-ipv4-num.csv.gz && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
