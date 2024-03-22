@@ -1,6 +1,11 @@
 # iploc8.com
 Building a container-based geolocation API using Flask and MySQL running on Amazon ECS.
 
+Why one container for Flash and MySQL? Isn't the current pattern to use docker compose with separate continers for each service?
+* I wanted portable container that could easily run on ECS
+* The container loads the most recent geo data at instantiation in the database for lookup, but not updates are made
+* The container "ages out" after a configurable amount of runtime, trigging another container to load with fresh data
+
 # Overview and Genesis
 After building a few IP address look up sites on different technologies, I wanted to create my own custom geo-lookup API that I can leverage on my other sites.
 
