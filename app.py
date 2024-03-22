@@ -64,7 +64,14 @@ def healthcheck():
     except Exception as e:
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
-    if asn_count_result == 0:
+    try:
+        cursor = mysql.connect().cursor()
+        isp_count = cursor.execute("SELECT COUNT(*) FROM isp")
+        isp_count_result = cursor.fetchone()[0]  # Fetch the count
+    except Exception as e:
+        print(f"Error encountered: {e}") # Log error
+        return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
+    if isp_count_result == 0:
         return jsonify({'error': 'Empty table'}), 500  # Return HTTP 500
     try:
         cursor = mysql.connect().cursor()
@@ -204,11 +211,11 @@ def ip_info():
             state1 = state2 = city = postcocde = latitude = longitude = timezone = ""
         cursor.execute("""
             SELECT description 
-            FROM asn 
+            FROM isp 
             WHERE start <= %s AND end >= %s
         """, (ip_decimal, ip_decimal))
-        asn_result = cursor.fetchone()
-        isp = asn_result[0] if asn_result else "Unidentified"
+        isp_result = cursor.fetchone()
+        isp = isp_result[0] if isp_result else "Unidentified"
     except Exception as e:
         print(f"Error encountered: {e}")
     finally:
