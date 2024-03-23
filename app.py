@@ -38,7 +38,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
 jwt = JWTManager(app)  
 
 # CORS setup
-CORS(app, origins=["http://localhost:5000", "http://localhost:8080", "https://ipdice.com", "https://www.ipdice.com"]) 
+CORS(app, origins=["http://localhost:5000", "http://localhost:8080", "https://"iploc8.com", "https://www.iploc8.com", "https://ipdice.com", "https://www.ipdice.com"]) 
 
 # Initial Database healthcheck
 healthy = True
