@@ -17,6 +17,44 @@ def get_reverse_dns(ip_address, timeout=5):
     except socket.herror:
         return None
 
+# Initial Database healthcheck
+healthy = True
+try:
+    cursor = mysql.connect().cursor()
+    geo_count = cursor.execute("SELECT COUNT(*) FROM geo")
+    geo_count_result = cursor.fetchone()[0]  # Fetch the count
+    if geo_count_result == 0:
+        healthy = False
+except Exception as e:
+    healthy = False
+
+try:
+    cursor = mysql.connect().cursor()
+    asn_count = cursor.execute("SELECT COUNT(*) FROM asn")
+    asn_count_result = cursor.fetchone()[0]  # Fetch the count
+    if asn_count_result == 0:
+        healthy = False
+except Exception as e:
+    healthy = False
+
+try:
+    cursor = mysql.connect().cursor()
+    isp_count = cursor.execute("SELECT COUNT(*) FROM isp")
+    isp_count_result = cursor.fetchone()[0]  # Fetch the count
+    if isp_count_result == 0:
+        healthy = False
+except Exception as e:
+    healthy = False
+
+try:
+    cursor = mysql.connect().cursor()
+    city_count = cursor.execute("SELECT COUNT(*) FROM city")
+    city_count_result = cursor.fetchone()[0]  # Fetch the count
+    if city_count_result == 0:
+        healthy = False
+except Exception as e:
+    healthy = False
+
 # App Setup
 app = Flask(__name__)
 mysql = MySQL()
@@ -57,46 +95,19 @@ def robots():
 # Healthcheck route
 @app.route('/healthcheck')
 def healthcheck():
+    if not healthy:
+        print(f"Error encountered: {e}") # Log error
+        return jsonify({'error': 'Database health check failed'}), 500  # Return HTTP 500
     # Database health check
     try:
         cursor = mysql.connect().cursor()
-        geo_count = cursor.execute("SELECT COUNT(*) FROM geo")
-        geo_count_result = cursor.fetchone()[0]  # Fetch the count
+        countries_count = cursor.execute("SELECT COUNT(*) FROM countries")
+        countries_count_result = cursor.fetchone()[0]  # Fetch the count
     except Exception as e:
         print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
-    if geo_count_result == 0:
-        return jsonify({'error': 'Empty table geo'}), 500  # Return HTTP 500
-
-    try:
-        cursor = mysql.connect().cursor()
-        asn_count = cursor.execute("SELECT COUNT(*) FROM asn")
-        asn_count_result = cursor.fetchone()[0]  # Fetch the count
-    except Exception as e:
-        print(f"Error encountered: {e}") # Log error
-        return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
-    if asn_count_result == 0:
-        return jsonify({'error': 'Empty table asn'}), 500  # Return HTTP 500
-
-    try:
-        cursor = mysql.connect().cursor()
-        isp_count = cursor.execute("SELECT COUNT(*) FROM isp")
-        isp_count_result = cursor.fetchone()[0]  # Fetch the count
-    except Exception as e:
-        print(f"Error encountered: {e}") # Log error
-        return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
-    if isp_count_result == 0:
-        return jsonify({'error': 'Empty table isp'}), 500  # Return HTTP 500
-
-    try:
-        cursor = mysql.connect().cursor()
-        city_count = cursor.execute("SELECT COUNT(*) FROM city")
-        city_count_result = cursor.fetchone()[0]  # Fetch the count
-    except Exception as e:
-        print(f"Error encountered: {e}") # Log error
-        return jsonify({'error': 'Database query failed'}), 500  # Return HTTP 500
-    if city_count_result == 0:
-        return jsonify({'error': 'Empty table city'}), 500  # Return HTTP 500
+    if countries_count_result == 0:
+        return jsonify({'error': 'Empty table countries'}), 500  # Return HTTP 500
 
     # Uptime check
     uptime_seconds = time.time() - container_start_time
