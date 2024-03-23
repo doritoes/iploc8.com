@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 from flaskext.mysql import MySQL
 import ipaddress
+import logging
 import socket
 import time
 import os
@@ -16,44 +17,6 @@ def get_reverse_dns(ip_address, timeout=5):
         return None
     except socket.herror:
         return None
-
-# Initial Database healthcheck
-healthy = True
-try:
-    cursor = mysql.connect().cursor()
-    geo_count = cursor.execute("SELECT COUNT(*) FROM geo")
-    geo_count_result = cursor.fetchone()[0]  # Fetch the count
-    if geo_count_result == 0:
-        healthy = False
-except Exception as e:
-    healthy = False
-
-try:
-    cursor = mysql.connect().cursor()
-    asn_count = cursor.execute("SELECT COUNT(*) FROM asn")
-    asn_count_result = cursor.fetchone()[0]  # Fetch the count
-    if asn_count_result == 0:
-        healthy = False
-except Exception as e:
-    healthy = False
-
-try:
-    cursor = mysql.connect().cursor()
-    isp_count = cursor.execute("SELECT COUNT(*) FROM isp")
-    isp_count_result = cursor.fetchone()[0]  # Fetch the count
-    if isp_count_result == 0:
-        healthy = False
-except Exception as e:
-    healthy = False
-
-try:
-    cursor = mysql.connect().cursor()
-    city_count = cursor.execute("SELECT COUNT(*) FROM city")
-    city_count_result = cursor.fetchone()[0]  # Fetch the count
-    if city_count_result == 0:
-        healthy = False
-except Exception as e:
-    healthy = False
 
 # App Setup
 app = Flask(__name__)
@@ -76,6 +39,52 @@ jwt = JWTManager(app)
 
 # CORS setup
 CORS(app, origins=["http://localhost:5000", "http://localhost:8080", "https://ipdice.com", "https://www.ipdice.com"]) 
+
+# Initial Database healthcheck
+healthy = True
+try:
+    cursor = mysql.connect().cursor()
+    geo_count = cursor.execute("SELECT COUNT(*) FROM geo")
+    geo_count_result = cursor.fetchone()[0]  # Fetch the count
+    if geo_count_result == 0:
+        healthy = False
+        logging.warning("table geo empty")
+except Exception as e:
+    healthy = False
+    logging.warning("table geo failed sql call")
+
+try:
+    cursor = mysql.connect().cursor()
+    asn_count = cursor.execute("SELECT COUNT(*) FROM asn")
+    asn_count_result = cursor.fetchone()[0]  # Fetch the count
+    if asn_count_result == 0:
+        healthy = False
+        logging.warning("table asn empty")
+except Exception as e:
+    healthy = False
+    logging.warning("table asn failed sql call")
+
+try:
+    cursor = mysql.connect().cursor()
+    isp_count = cursor.execute("SELECT COUNT(*) FROM isp")
+    isp_count_result = cursor.fetchone()[0]  # Fetch the count
+    if isp_count_result == 0:
+        healthy = False
+        logging.warning("table isp empty")
+except Exception as e:
+    healthy = False
+    logging.warning("table isp failed sql call")
+
+try:
+    cursor = mysql.connect().cursor()
+    city_count = cursor.execute("SELECT COUNT(*) FROM city")
+    city_count_result = cursor.fetchone()[0]  # Fetch the count
+    if city_count_result == 0:
+        healthy = False
+        logging.warning("table city empty")
+except Exception as e:
+    healthy = False
+    logging.warning("table city failed sql call")
 
 # Home page
 @app.route('/')
