@@ -96,7 +96,6 @@ def robots():
 @app.route('/healthcheck')
 def healthcheck():
     if not healthy:
-        print(f"Error encountered: {e}") # Log error
         return jsonify({'error': 'Database health check failed'}), 500  # Return HTTP 500
     # Database health check
     try:
