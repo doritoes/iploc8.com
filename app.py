@@ -41,7 +41,7 @@ jwt = JWTManager(app)
 CORS(app, origins=[
     "http://localhost:5000",
     "http://localhost:8080",
-    "https://"iploc8.com",
+    "https://iploc8.com",
     "https://www.iploc8.com",
     "https://ipdice.com",
     "https://www.ipdice.com"
