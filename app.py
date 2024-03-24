@@ -26,6 +26,9 @@ mysql = MySQL()
 # Capture uptime
 container_start_time = time.time()
 
+# ip-api key
+apikey = 'mSNe9ak5XhdpVBX'
+
 # Configure MySQL database
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'your_password'
@@ -311,7 +314,45 @@ def get_ip_info(ip_address):
             "reverseLookup": data.get("reverse"),
             "isMobile": data.get("mobile"),
             "isProxy": data.get("proxy"),
-            "isHosting": data.get("hosting")
+            "isHosting": data.get("hosting"),
+            "attribution": [
+                {"name": "ip-api.com", "link": "https://www.ip-api.com/"}
+            ]
+        }
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": "Error fetching IP data"}), 500 
+    return jsonify(result), 200  # Return the processed data
+
+# API Route (/api/v4/ip)
+@app.route('/api/v4/ip/<ip_address>', methods=["GET"])
+def get_ip_info_v4(ip_address):
+    try:
+        ip = ipaddress.ip_address(ip_address)
+    except ValueError:
+        return jsonify({'error': 'Invalid IP address'}), 400
+    api_url = f"https://pro.ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,zip,isp,org,reverse,mobile,proxy,hosting&key={apikey}"
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()  # Raise an exception if request failed
+        data = response.json()
+        if data.get('status') == 'fail':
+            # Return an error response
+            return jsonify({"error": data.get('message', "IP lookup failed")}), 400
+        # Process the successful response data
+        result = {
+            "city": data.get("city"),
+            "state": data.get("regionName"),
+            "country": data.get("country"),
+            "zipCode": data.get("zip"),
+            "isp": data.get("isp"),
+            "organization": data.get("org"),
+            "reverseLookup": data.get("reverse"),
+            "isMobile": data.get("mobile"),
+            "isProxy": data.get("proxy"),
+            "isHosting": data.get("hosting"),
+            "attribution": [
+                {"name": "ip-api.com", "link": "https://www.ip-api.com/"}
+            ]
         }
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Error fetching IP data"}), 500 
