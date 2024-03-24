@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 from flaskext.mysql import MySQL
 import ipaddress
+import requests
 import logging
 import socket
 import time
@@ -283,6 +284,38 @@ def ip_info():
         ]
     }
     return jsonify(ip_data), 200
+
+# API Route (/api/v3/ip)
+@app.route('/api/v3/ip/<ip_address>', methods=["GET"])
+def get_ip_info(ip_address):
+    try:
+        ip = ipaddress.ip_address(ip_address)
+    except ValueError:
+        return jsonify({'error': 'Invalid IP address'}), 400
+    api_url = f"http://ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,zip,isp,org,reverse,mobile,proxy,hosti
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()  # Raise an exception if request failed
+        data = response.json()
+        if data.get('status') == 'fail':
+            # Return an error response
+            return jsonify({"error": data.get('message', "IP lookup failed")}), 400
+        # Process the successful response data
+        result = {
+            "city": data.get("city"),
+            "state": data.get("regionName"),
+            "country": data.get("country"),
+            "zipCode": data.get("zip"),
+            "isp": data.get("isp"),
+            "organization": data.get("org"),
+            "reverseLookup": data.get("reverse"),
+            "isMobile": data.get("mobile"),
+            "isProxy": data.get("proxy"),
+            "isHosting": data.get("hosting")
+        }
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": "Error fetching IP data"}), 500 
+    return jsonify(result), 200  # Return the processed data
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
