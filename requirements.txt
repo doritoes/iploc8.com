@@ -1,6 +1,7 @@
 flask
+flask-cors
 flask-mysql
+Flask-JWT-Extended
+requests
 PyMySQL[rsa]
 mysql-connector-python==8.0.32
-Flask-JWT-Extended
-flask-cors
