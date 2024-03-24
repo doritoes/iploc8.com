@@ -292,7 +292,7 @@ def get_ip_info(ip_address):
         ip = ipaddress.ip_address(ip_address)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400
-    api_url = f"http://ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,zip,isp,org,reverse,mobile,proxy,hosti
+    api_url = f"http://ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,zip,isp,org,reverse,mobile,proxy,hosting"
     try:
         response = requests.get(api_url)
         response.raise_for_status()  # Raise an exception if request failed
