@@ -1,10 +1,11 @@
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 from flaskext.mysql import MySQL
+from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 import ipaddress
 import requests
 import logging
+import base64
 import socket
 import time
 import os
@@ -27,7 +28,7 @@ mysql = MySQL()
 container_start_time = time.time()
 
 # ip-api key
-apikey = 'mSNe9ak5XhdpVBX'
+apikey = base64.b64decode('bVNOZTlhazVYaGRwVkJY').decode()
 
 # Configure MySQL database
 app.config['MYSQL_DATABASE_USER'] = 'root'
