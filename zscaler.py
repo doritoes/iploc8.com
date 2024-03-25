@@ -36,14 +36,12 @@ with open(output_filename, 'w') as csvfile:
             else:
                 print('internal error')
                 sys.exit(1)
-            print(f"{real_city} - {node}")
             for pop in my_data['zscaler.net'][continent][city]:
                 try:
                     n = ipaddress.IPv4Network(pop['range'])
                     first, last = n[1], n[-2]
                     first_dec = int(first)
                     last_dec = int(last)
-                    print(first, last)
                     csvwriter.writerow(['swg', 'zscaler', first_dec, last_dec, real_city, node])
                 except ValueError:
                     pass # not IPv4 CIDR
