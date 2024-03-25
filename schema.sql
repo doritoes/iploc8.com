@@ -56,6 +56,18 @@ CREATE TABLE IF NOT EXISTS city (
     INDEX (end)
 );
 
+CREATE TABLE IF NOT EXISTS corporate (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(128),
+    vendor VARCHAR(255),
+    start BIGINT NOT NULL,
+    end BIGINT NOT NULL,
+    location VARCHAR(255),
+    node VARCHAR(255),
+    INDEX (start),
+    INDEX (end)
+);
+
 CREATE TABLE IF NOT EXISTS api_keys (
     guuid VARCHAR(48) PRIMARY KEY,
     valid BOOLEAN DEFAULT TRUE
