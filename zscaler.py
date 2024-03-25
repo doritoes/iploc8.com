@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 fetches Zscaler's JSON list of outbound IP address ranges
-processes IPv4 address rnages
+processes IPv4 address ranges
 outputs CSV compatible with our corporate proxies table
 
 curl -o zscaler.json https://config.zscaler.com/api/zscaler.net/cenr/json
