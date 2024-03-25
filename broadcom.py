@@ -40,7 +40,6 @@ with open(output_filename, 'w') as csvfile:
                             first, last = n[1], n[-2]
                             first_dec = int(first)
                             last_dec = int(last)
-                            print(first, last)
                             csvwriter.writerow(['isolation', 'broadcom', first_dec, last_dec, location, node])
                         except ValueError:
                             pass # not IPv4 CIDR
