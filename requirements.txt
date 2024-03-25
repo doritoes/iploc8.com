@@ -1,7 +1,12 @@
+re
+csv
+sys
+json
 flask
 flask-cors
 flask-mysql
 Flask-JWT-Extended
 requests
+ipaddress
 PyMySQL[rsa]
 mysql-connector-python==8.0.32
