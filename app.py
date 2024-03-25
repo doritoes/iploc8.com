@@ -377,6 +377,8 @@ def get_ip_info(ip_address):
         sanction = sanction_result[0] if sanction_result else None
     except Exception as e:
         print(f"Error encountered: {e}")
+        sanction = None
+        corporate_proxy = None
     finally:
         if cursor:
             cursor.close()  # Ensure cursor is closed
@@ -437,6 +439,8 @@ def get_ip_info_v4(ip_address):
         sanction = sanction_result[0] if sanction_result else None
     except Exception as e:
         print(f"Error encountered: {e}")
+        sanction = None
+        corporate_proxy = None
     finally:
         if cursor:
             cursor.close()  # Ensure cursor is closed
