@@ -81,7 +81,7 @@ echo >&2 "importing zscaler.json"
     ENCLOSED BY '\"'
     LINES TERMINATED BY '\n'
     IGNORE 1 LINES
-    (type, vendor, start, end, city, node);
+    (type, vendor, start, end, location, node);
 " && rm /app/zscaler.csv
 echo >&2 "importing broadcom.json"
 /app/broadcom.py && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
@@ -92,7 +92,7 @@ echo >&2 "importing broadcom.json"
     ENCLOSED BY '\"'
     LINES TERMINATED BY '\n'
     IGNORE 1 LINES
-    (type, vendor, start, end, city, node);
+    (type, vendor, start, end, location, node);
 " && rm /app/broadcom.csv
 # Start the app
 echo >&2 "download complete - starting app"
