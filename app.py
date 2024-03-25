@@ -290,7 +290,7 @@ def ip_info():
             WHERE start <= %s AND end >= %s
         """, (ip_decimal, ip_decimal))
         corporate_result = cursor.fetchone()
-        coporate_proxy = corporate_result[1] if corporate_result else None
+        corporate_proxy = corporate_result[1] if corporate_result else None
         cursor.execute("""
             SELECT Sanction FROM sanctions WHERE Country = %s
         """, (country,))
@@ -369,7 +369,7 @@ def get_ip_info(ip_address):
             WHERE start <= %s AND end >= %s
         """, (ip_decimal, ip_decimal))
         corporate_result = cursor.fetchone()
-        coporate_proxy = corporate_result[1] if corporate_result else None
+        corporate_proxy = corporate_result[1] if corporate_result else None
         cursor.execute("""
             SELECT Sanction FROM sanctions WHERE Country = %s
         """, (country_code,))
@@ -429,7 +429,7 @@ def get_ip_info_v4(ip_address):
             WHERE start <= %s AND end >= %s
         """, (ip_decimal, ip_decimal))
         corporate_result = cursor.fetchone()
-        coporate_proxy = corporate_result[1] if corporate_result else None
+        corporate_proxy = corporate_result[1] if corporate_result else None
         cursor.execute("""
             SELECT Sanction FROM sanctions WHERE Country = %s
         """, (country_code,))
