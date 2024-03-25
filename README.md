@@ -109,3 +109,4 @@ Here are the goals I have for this project. If you would like to encourage me to
 - https://www.abuseipdb.com/
 - https://www.projecthoneypot.org/list_of_ips.php
 - https://www.spamhaus.org/ip-reputation/
+- https://status.fortisase.com/
