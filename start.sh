@@ -73,7 +73,7 @@ gunzip /app/dbip-city-ipv4-num.csv.gz && mysql --local-infile=1 -uroot -p"${MYSQ
     (start, end, country_code, state1, state2, city, postcode, latitude, longitude, timezone);
 " && rm /app/dbip-city-ipv4-num.csv
 echo >&2 "importing zscaler.json"
-zscaler.py && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+/app/zscaler.py && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
     LOAD DATA LOCAL INFILE '/app/zscaler.csv'
     INTO TABLE corporate
@@ -84,7 +84,7 @@ zscaler.py && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     (type, vendor, start, end, city, node);
 " && rm /app/zscaler.csv
 echo >&2 "importing broadcom.json"
-broadcom.py && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+/app/broadcom.py && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     USE mydatabase;
     LOAD DATA LOCAL INFILE '/app/broadcom.csv'
     INTO TABLE corporate
