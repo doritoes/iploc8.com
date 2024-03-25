@@ -80,7 +80,20 @@ zscaler.py && && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
     FIELDS TERMINATED BY ','
     ENCLOSED BY '\"'
     LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
     (type, vendor, start, end, city, node);
+" && rm /app/zscaler.csv
+echo >&2 "importing broadcom.json"
+broadcom.py && && mysql --local-infile=1 -uroot -p"${MYSQL_ROOT_PASSWORD}" -e "
+    USE mydatabase;
+    LOAD DATA LOCAL INFILE '/app/broadcom.csv'
+    INTO TABLE corporate
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '\"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 LINES
+    (type, vendor, start, end, city, node);
+" && rm /app/broadcom.csv
 # Start the app
 echo >&2 "download complete - starting app"
 python3 app.py
