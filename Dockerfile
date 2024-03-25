@@ -11,7 +11,7 @@ RUN pip3 install -r requirements.txt
 ENV JWT_SECRET_KEY $(openssl rand -hex 32) # Generate a random secre
 
 # Copy application files
-COPY app.py schema.sql start.sh countries.csv sanctions.csv ./
+COPY app.py schema.sql start.sh zscaler.py broadcom.py countries.csv sanctions.csv ./
 
 # Copy the 'static' content folder
 COPY static ./static 
