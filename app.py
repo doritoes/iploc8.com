@@ -331,6 +331,7 @@ def ip_info():
 def get_ip_info(ip_address):
     try:
         ip = ipaddress.ip_address(ip_address)
+        ip_decimal = int(ip)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400
     api_url = f"http://ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,countryCode,zip,isp,org,reverse,mobile,proxy,hosting"
@@ -359,7 +360,30 @@ def get_ip_info(ip_address):
             ]
         }
     except requests.exceptions.RequestException as e:
-        return jsonify({"error": "Error fetching IP data"}), 500 
+        return jsonify({"error": "Error fetching IP data"}), 500
+    try:
+        cursor = mysql.connect().cursor()
+        cursor.execute("""
+            SELECT vendor, type 
+            FROM corporate 
+            WHERE start <= %s AND end >= %s
+        """, (ip_decimal, ip_decimal))
+        corporate_result = cursor.fetchone()
+        coporate_proxy = corporate_result[1] if corporate_result else None
+        cursor.execute("""
+            SELECT Sanction FROM sanctions WHERE Country = %s
+        """, (country_code,))
+        sanction_result = cursor.fetchone()
+        sanction = sanction_result[0] if sanction_result else None
+    except Exception as e:
+        print(f"Error encountered: {e}")
+    finally:
+        if cursor:
+            cursor.close()  # Ensure cursor is closed
+    if corporate_proxy:
+        result['corporate_proxy'] = corporate_proxy
+    if sanction:
+        result['sanction'] = sanction
     return jsonify(result), 200  # Return the processed data
 
 # API Route (/api/v4/ip)
@@ -367,6 +391,7 @@ def get_ip_info(ip_address):
 def get_ip_info_v4(ip_address):
     try:
         ip = ipaddress.ip_address(ip_address)
+        ip_decimal = int(ip)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400
     api_url = f"https://pro.ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,countryCode,zip,isp,org,reverse,mobile,proxy,hosting&key={apikey}"
@@ -395,7 +420,30 @@ def get_ip_info_v4(ip_address):
             ]
         }
     except requests.exceptions.RequestException as e:
-        return jsonify({"error": "Error fetching IP data"}), 500 
+        return jsonify({"error": "Error fetching IP data"}), 500
+    try:
+        cursor = mysql.connect().cursor()
+        cursor.execute("""
+            SELECT vendor, type 
+            FROM corporate 
+            WHERE start <= %s AND end >= %s
+        """, (ip_decimal, ip_decimal))
+        corporate_result = cursor.fetchone()
+        coporate_proxy = corporate_result[1] if corporate_result else None
+        cursor.execute("""
+            SELECT Sanction FROM sanctions WHERE Country = %s
+        """, (country_code,))
+        sanction_result = cursor.fetchone()
+        sanction = sanction_result[0] if sanction_result else None
+    except Exception as e:
+        print(f"Error encountered: {e}")
+    finally:
+        if cursor:
+            cursor.close()  # Ensure cursor is closed
+    if corporate_proxy:
+        result['corporate_proxy'] = corporate_proxy
+    if sanction:
+        result['sanction'] = sanction
     return jsonify(result), 200  # Return the processed data
 
 if __name__ == '__main__':
