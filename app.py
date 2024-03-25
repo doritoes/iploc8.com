@@ -89,6 +89,17 @@ except Exception as e:
 
 try:
     cursor = mysql.connect().cursor()
+    corporate_count = cursor.execute("SELECT COUNT(*) FROM corporate")
+    corporate_count_result = cursor.fetchone()[0]  # Fetch the count
+    if corporate_count_result == 0:
+        healthy = False
+        logging.warning("table corporate empty")
+except Exception as e:
+    healthy = False
+    logging.warning("table corporate failed sql call")
+
+try:
+    cursor = mysql.connect().cursor()
     city_count = cursor.execute("SELECT COUNT(*) FROM city")
     city_count_result = cursor.fetchone()[0]  # Fetch the count
     if city_count_result == 0:
@@ -176,10 +187,18 @@ def get_ip():
         asn_result = cursor.fetchone()
         isp = asn_result[0] if asn_result else "Unknown"
         cursor.execute("""
+            SELECT vendor, type 
+            FROM corporate 
+            WHERE start <= %s AND end >= %s
+        """, (ip_decimal, ip_decimal))
+        corporate_result = cursor.fetchone()
+        coporate_proxy = corporate_result[1] if corporate_result else None
+        cursor.execute("""
             SELECT Sanction FROM sanctions WHERE Country = %s
         """, (country,))
         sanction_result = cursor.fetchone()
         sanction = sanction_result[0] if sanction_result else None
+        
     except Exception as e:
         print(f"Error encountered: {e}")
         return jsonify({'error': 'Database query failed'}), 500
@@ -191,6 +210,8 @@ def get_ip():
     }
     if sanction:
         output_data['sanction'] = sanction
+    if corporate_proxy:
+        output_data['corporate_proxy'] = corporate_proxy
     return jsonify(output_data)
 
 # API Route (/api/v2/login)
@@ -263,6 +284,18 @@ def ip_info():
         """, (ip_decimal, ip_decimal))
         isp_result = cursor.fetchone()
         isp = isp_result[0] if isp_result else "Unidentified"
+        cursor.execute("""
+            SELECT vendor, type 
+            FROM corporate 
+            WHERE start <= %s AND end >= %s
+        """, (ip_decimal, ip_decimal))
+        corporate_result = cursor.fetchone()
+        coporate_proxy = corporate_result[1] if corporate_result else None
+        cursor.execute("""
+            SELECT Sanction FROM sanctions WHERE Country = %s
+        """, (country,))
+        sanction_result = cursor.fetchone()
+        sanction = sanction_result[0] if sanction_result else None
     except Exception as e:
         print(f"Error encountered: {e}")
     finally:
@@ -287,6 +320,10 @@ def ip_info():
             {"name": "RouteViews", "link": "https://www.routeviews.org/routeviews/"}
         ]
     }
+    if corporate_proxy:
+        ip_data['corporate_proxy'] = corporate_proxy
+    if sanction:
+        output_data['sanction'] = sanction
     return jsonify(ip_data), 200
 
 # API Route (/api/v3/ip)
@@ -296,7 +333,7 @@ def get_ip_info(ip_address):
         ip = ipaddress.ip_address(ip_address)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400
-    api_url = f"http://ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,zip,isp,org,reverse,mobile,proxy,hosting"
+    api_url = f"http://ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,countryCode,zip,isp,org,reverse,mobile,proxy,hosting"
     try:
         response = requests.get(api_url)
         response.raise_for_status()  # Raise an exception if request failed
@@ -309,6 +346,7 @@ def get_ip_info(ip_address):
             "city": data.get("city"),
             "state": data.get("regionName"),
             "country": data.get("country"),
+            "country_code": data.get("countryCode"),
             "zipCode": data.get("zip"),
             "isp": data.get("isp"),
             "organization": data.get("org"),
@@ -331,7 +369,7 @@ def get_ip_info_v4(ip_address):
         ip = ipaddress.ip_address(ip_address)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400
-    api_url = f"https://pro.ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,zip,isp,org,reverse,mobile,proxy,hosting&key={apikey}"
+    api_url = f"https://pro.ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,countryCode,zip,isp,org,reverse,mobile,proxy,hosting&key={apikey}"
     try:
         response = requests.get(api_url)
         response.raise_for_status()  # Raise an exception if request failed
@@ -344,6 +382,7 @@ def get_ip_info_v4(ip_address):
             "city": data.get("city"),
             "state": data.get("regionName"),
             "country": data.get("country"),
+            "country_code": data.get("countryCode"),
             "zipCode": data.get("zip"),
             "isp": data.get("isp"),
             "organization": data.get("org"),
