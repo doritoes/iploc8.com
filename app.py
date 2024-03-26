@@ -334,6 +334,7 @@ def ip_info():
 # API Route (/api/v3/ip)
 @app.route('/api/v3/ip/<ip_address>', methods=["GET"])
 def get_ip_info(ip_address):
+    global back_off
     if back_off and back_off > datetime.datetime.now():
         return jsonify({"error": "Too many requests. Please try again later."}), 429  
     try:
