@@ -26,7 +26,7 @@ def get_reverse_dns(ip_address, timeout=5):
 app = Flask(__name__)
 mysql = MySQL()
 
-# Capture uptime
+# Capture container age
 container_start_time = time.time()
 
 # ip-api key
@@ -145,10 +145,10 @@ def healthcheck():
     if countries_count_result == 0:
         return jsonify({'error': 'Empty table countries'}), 500  # Return HTTP 500
 
-    # Uptime check
+    # Container uptime check
     uptime_seconds = time.time() - container_start_time
     uptime_hours = uptime_seconds / 3600
-    if uptime_hours > 12:
+    if uptime_hours > 12: # data is considered old
         return jsonify({'status': f'Container uptime exceeds threshold (uptime: {uptime_seconds} seconds)'}), 203
     else:
         return jsonify({'status': 'OK'})
@@ -385,6 +385,10 @@ def get_ip_info(ip_address):
                 back_off = datetime.datetime.now() + datetime.timedelta(seconds=60)
             return jsonify({"error": "Error fetching IP data"}), 500
     except requests.exceptions.RequestException as e:
+        if back_off:
+            back_off = datetime.datetime.now() + datetime.timedelta(seconds=100)
+        else:
+            back_off = datetime.datetime.now() + datetime.timedelta(seconds=10)
         return jsonify({"error": "Error fetching IP data"}), 500
     try:
         cursor = mysql.connect().cursor()
