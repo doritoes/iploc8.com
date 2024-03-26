@@ -3,9 +3,11 @@ from flask_cors import CORS
 from flaskext.mysql import MySQL
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 import ipaddress
+import datetime
 import requests
 import logging
 import base64
+import random
 import socket
 import time
 import os
@@ -29,6 +31,9 @@ container_start_time = time.time()
 
 # ip-api key
 apikey = base64.b64decode('bVNOZTlhazVYaGRwVkJY').decode()
+
+# back off timer
+back_off = None
 
 # Configure MySQL database
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -329,12 +334,16 @@ def ip_info():
 # API Route (/api/v3/ip)
 @app.route('/api/v3/ip/<ip_address>', methods=["GET"])
 def get_ip_info(ip_address):
+    if back_off and back_off > datetime.datetime.now():
+        return jsonify({"error": "Too many requests. Please try again later."}), 429  
     try:
         ip = ipaddress.ip_address(ip_address)
         ip_decimal = int(ip)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400
     api_url = f"http://ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,countryCode,zip,isp,org,reverse,mobile,proxy,hosting"
+    if back_off:
+        time.sleep(0.5 + random.random())
     try:
         response = requests.get(api_url)
         response.raise_for_status()  # Raise an exception if request failed
@@ -359,6 +368,17 @@ def get_ip_info(ip_address):
                 {"name": "ip-api.com", "link": "https://www.ip-api.com/"}
             ]
         }
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 429:
+            # Handle 429: Implement back-off strategy
+            if back_off:
+                back_off = datetime.datetime.now() + datetime.timedelta(seconds=100)
+            else:
+                back_off = datetime.datetime.now() + datetime.timedelta(seconds=10)
+            return jsonify({"error": "Too many requests. Please try again later."}), 429  
+        else:
+            # Handle other HTTP errors
+            return jsonify({"error": "Error fetching IP data"}), 500
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Error fetching IP data"}), 500
     try:
@@ -386,6 +406,7 @@ def get_ip_info(ip_address):
         result['corporate_proxy'] = corporate_proxy
     if sanction:
         result['sanction'] = sanction
+    back_off = None
     return jsonify(result), 200  # Return the processed data
 
 # API Route (/api/v4/ip)
@@ -396,7 +417,7 @@ def get_ip_info_v4(ip_address):
         ip_decimal = int(ip)
     except ValueError:
         return jsonify({'error': 'Invalid IP address'}), 400
-    api_url = f"https://pro.ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,countryCode,zip,isp,org,reverse,mobile,proxy,hosting&key={apikey}"
+    api_url = f"https://pro.ip-api.com/json/{ip_address}?fields=status,message,city,regionName,country,countryCode,zip,isp,org,reverse,mobile,proxy,hosting&key={apikey}"    
     try:
         response = requests.get(api_url)
         response.raise_for_status()  # Raise an exception if request failed
