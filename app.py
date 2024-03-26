@@ -379,6 +379,10 @@ def get_ip_info(ip_address):
             return jsonify({"error": "Too many requests. Please try again later."}), 429  
         else:
             # Handle other HTTP errors
+            if back_off:
+                back_off = datetime.datetime.now() + datetime.timedelta(seconds=120)
+            else:
+                back_off = datetime.datetime.now() + datetime.timedelta(seconds=60)
             return jsonify({"error": "Error fetching IP data"}), 500
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Error fetching IP data"}), 500
