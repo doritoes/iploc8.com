@@ -1,6 +1,9 @@
 # iploc8.com
 Building a container-based geolocation API using Flask and MySQL running on Amazon ECS.
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/doritoes/iploc8.com.svg)](https://hub.docker.com/r/doritoes/iploc8.com/)
+![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+
 Why one container for Flash and MySQL? Isn't the current pattern to use docker compose with separate continers for each service?
 * I wanted portable container that could easily run on ECS
 * The container loads the most recent geo data at instantiation in the database for lookup, but not updates are made
@@ -25,6 +28,8 @@ This demonstration site has the following features:
 # Project Goals
 Here are the goals I have for this project. If you would like to encourage me to add additional goals or to complete these goals, I'm open to [contributions](https://account.venmo.com/u/unclenuc) to pay my Cloud bills.
 
+This is mean to be a step-by-step Lab exercise that you can follow along to.
+
 ## In Scope
 ### Completed
 - Register domain name
@@ -32,26 +37,23 @@ Here are the goals I have for this project. If you would like to encourage me to
 - Second geo API with city data, secured with API key and JWT tokens
 - Add sanctions table
 - favicon.ico
-### Working on
-- Bootstrapping repo on Github
-- fix health check to work on a live table
+- improve heathcheck
 - CORS testing
-### Will Do
-- bootstrapping image on Docker Hub
 - one region built in ECS
 - multi-region ECS
+- Zscaler and Broadcom SWG address spaces
+- WAF API protection
+### Working on
+- Bootstrapping repo on Github
+### Will Do
+- bootstrapping image on Docker Hub
 - Add MS published address spaces
 - Add Tor published address spaces
-- Add Zscaler published POP addresses spaces
-- Add Broadcom published POP addresses spaces
-- WAF API protection
 ### Might Do
 - MS Azure customer space
 - GCP customer space
 - AWC customer space
-- Proxy list ingest
 - Threat Intel enrichment
-  - Proxy detection
   - Reputation/blacklists
 - Might migrate to Azure or GCP if it becomes an interesting challenge
 ## Out of Scope
@@ -86,6 +88,9 @@ Here are the goals I have for this project. If you would like to encourage me to
   - countries.csv was last refreshed from here 3/19/2024
 - https://github.com/sapics/ip-location-db
   - this data is loaded on each container initilization
+- https://ip-api.com/
+  - thirds party geo-location API integration
+
 ## Find Out More
 - https://iptoasn.com/
 - https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide
@@ -101,6 +106,7 @@ Here are the goals I have for this project. If you would like to encourage me to
     - https://config.zscaler.com/api/zscaler.net/hubs/cidr/json/recommended
 - https://github.com/TheSpeedX/PROXY-List
 - TOR exit nodes
+  - https://github.com/SecOps-Institute/Tor-IP-Addresses
 - Azure IP ranges and service tags - public cloud
   - https://www.microsoft.com/en-us/download/details.aspx?id=56519
 - AWS EC2
