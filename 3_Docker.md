@@ -120,7 +120,7 @@ Note the 3 images used to build the image. Note how each image inherits the vunl
 
 Images: Do any of the image have a newer image available?
 
-Vulnerabilties: What packages are vulnerable? What layers (lines in the Dockerfile) introduce these vulnerabilities?
+Vulnerabilties: What packages are vulnerable? What layers (lines in the Dockerfile) introduce these vulnerabilities? If you expand the vulnerable librarites, note the CVE and CWE links. You can click those for more information.
 
 In the top right find *Recommended fixes*. What recommendations do you find?
 
