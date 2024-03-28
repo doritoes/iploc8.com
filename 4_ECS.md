@@ -240,8 +240,8 @@ This role allows ECS tasks to pull images from ECR and perform other necessary A
     - Launch type: **AWS Fargate**
     - OS, Architecture, Network mode: **Linux/X86_64**
     - Network mode: automatically set to *awsvpc* for Fargate
-    - CPU: **0.25 vCPU**
-    - Memory: **0.5 GB**
+    - CPU: **0.5 vCPU**
+    - Memory: **1 GB**
     - Task Role - grants your task's containers permissions to call other AWS services on your behalf (e.g., accessing an S3 bucket, sending a message to SNS) - **Leave Blank for Now**
     - Task Execution role - gives the ECS agent (running on the Fargate infrastructure) permissions to manage your tasks. It needs permissions like pulling container images from ECR and writing logs to CloudWatch - **ecsTaskExecutionRole**
     - Container - 1
