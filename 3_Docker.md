@@ -128,12 +128,12 @@ Common example for rebuilding with a new base image version:
 `docker build --pull . -t flask:latest
 
 Note that Docker Desktop has more extensions to help you examine your iamges:
-- Lacework Scanner
-- anchore
-- Aqua Trivy
-- JFrog
+- Anchore - no account required, scans all images for vulnerable packages
+- Aqua Trivy - no account required
+- Snyk - account required, limited personal user for free
+- Lacework Scanner - requires a subscription
+
+Ther are other vulnerability scanners for images outside of Docker desktop:
+- Clar
 - Snyk
-- Kubescape
-
-
-
+- Trivy
