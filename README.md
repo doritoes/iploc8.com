@@ -82,6 +82,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 5. [Configuring CloudFront with WAF](5_CloudFront_WAF.md)
 6. [Testing and Monitoring](6_Testing_and_Monitoring.md)
 7. [Adding Regions](7_Regions.md)
+8. [Next Steps](8_Next_Steps.md)
 
 # Data Sources
 - https://datahub.io/core/country-list
