@@ -93,6 +93,18 @@ Modify your existing Route 53 "A" record for both "iploc8.com"
 - Routing policy: **Simple routing**
 - Click **Save**
 
+## Configure WAF
+1. In the search bar enter "CloudFront" and click on **CloudFront**
+2. Click on your distribution
+3. Click on the **Security** tab then click **Edit**
+    - Review the settings, then click **Cancel** or **Save changes**
+4. To enable the *Rate limiting* protection, click the link that says *Monitor mode* and then click **Enable blocking**
+5. Expand *CloudFront geographic restricitions* then click **Edit**
+    - Review your options, then click **Cancel** or **Save changes**
+6. Expand *Sampled bot requests for the specified time range* and click **Manage bot protection*
+    - Review your options and the pricing concerns, then click **Cancel** or **Save changes**
+7. Expand *Request logss fro the specified time range* and consider the cost to enabling AWS WAF logs
+
 ## Test
 Allow for DNS entries to propagate (e.g., https://dnschecker.org/#A/www.iploc8.com)
 
