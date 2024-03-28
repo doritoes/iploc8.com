@@ -51,6 +51,41 @@ You will note that the application leverages (ip-api)[https://ip-api.com] for IP
 4. You can delete the container if you want, but keep the image as we will be pushing it to AWS ECR using in the next step
 
 # Learn More
+## Testing health check function
+You can point your browser to the healtch check URL: http://127.0.0.1:5000/healthcheck
+
+Another way is to use a `curl` command: `curl -v http://127.0.0.1:5000/healthcheck`
+
+### Container up for longer that 12 hours
+If the container us up longer that 12 hours, an HTTP 203 status will be retuns an a message explaining why.
+~~~
+{
+  "status": "Container uptime exceeds threshold (uptime: 234027.9399881363 seconds)"
+}
+~~
+
+### Empty tables in the database
+If some of the external data fails to load in the MySQL database, an HTTP 500 status is returned.
+
+Currently this is only tested at first boot-up.
+
+### MySQL is down
+If MySQL (mysqld) dies or hangs, an HTTP 500 status is returned.
+
+How to simulate:
+1. Use Docker Desktop "Exec" tab to get to command line in the container
+2. Install procps tools
+    - `microdnf install procps`
+3. Kill the mysqld process
+    - `pkill mysqld`
+
+The health check will now return an HTTP 500 status.
+~~~
+{
+  "error": "Database query failed"
+}
+~~~
+
 ## postman
 Download [postman]([https://www.postman.com/](https://www.postman.com/downloads/)) or use the web version to test the API.
 
@@ -90,7 +125,6 @@ This one is a bit more complex and secure. Examine the static `test.html` file t
     - Body:  click the **raw** tab and enter: `{ "ip": "9.9.9.9" }`
     - Click **Send**
 3. Examine the results. Note the attribution information. The data is sources from a provider that requires displaying a link to their site.
-
 
 ## sqlmap
 Since we are exposing an API with a SQL database to the internet, it is important to consider API security. We will be configuring the (expensive) AWS CloudFront WAP in front of the API later. However, this is an opportunity to get experience testing the security of the API with the sqlmap tool.
