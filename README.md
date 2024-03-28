@@ -33,20 +33,18 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 ## In Scope
 ### Completed
 - Register domain name
-- First geo API with country and ASN data
-- Second geo API with city data, secured with API key and JWT tokens
-- Add sanctions table
-- favicon.ico
-- improve heathcheck
+- first geo API with country and ASN data
+- second geo API with city data, secured with API key and JWT tokens
+- third and fourth geo API integrating with ip-api.com
 - CORS testing
-- one region built in ECS
-- multi-region ECS
+- one region built in ECS with CloudFront and WAF protection
+- multi-region
 - Zscaler and Broadcom SWG address spaces
-- WAF API protection
-### Working on
-- Bootstrapping repo on Github
-### Will Do
 - bootstrapping image on Docker Hub
+### Working on
+- bootstrapping repo on Github
+- create home page
+### Will Do
 - Add MS published address spaces
 - Add Tor published address spaces
 ### Might Do
