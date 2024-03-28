@@ -137,3 +137,10 @@ Ther are other vulnerability scanners for images outside of Docker desktop:
 - Clar
 - Snyk
 - Trivy
+
+## Learn about securing Docker Containers
+https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html
+
+What are some secruity concerns with this the iploc8.com container?
+- design prevents using --read-only filesystem
+- what else?
