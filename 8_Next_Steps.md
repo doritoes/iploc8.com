@@ -118,6 +118,6 @@ I recommend reading/learning more! Here are some free and some paid resources th
 - https://www.udemy.com/topic/amazon-ecs/?utm_source=
 - https://www.f5.com/labs/learning-center/securing-apis-10-best-practices-for-keeping-your-data-and-infrastructure-safe
 
-### Compare AWS Fargate to other Serverless Techonologies
+### Compare AWS Fargate to other Serverless Technologies
 - https://duttaaniruddha31.medium.com/aws-fargate-vs-google-cloud-run-f6706e1e6147
 - https://blog.iron.io/aws-fargate-vs-azure-containers/
