@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My IP Info</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>IP Information</h1>
+  <div id="ip-data"></div>
+
+  <script>
+$(document).ready(function() {
+    const apiUrl = "https://iploc8.com"; // Base URL for your Flask API
+    const apiKey = "e95b186d-3677-4466-9cb2-20a549ab1d85"; 
+
+    // Step 1: Fetch client IP from ipify
+    $.getJSON("https://api.ipify.org?format=json", function(data) {
+        const clientIp = data.ip;
+
+        // Step 2: Login (Modified to use API Key)
+        $.ajax({
+            url: apiUrl + "/api/v2/login",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ api_key: apiKey }), // Send API key 
+            success: function(response) {
+                const jwtToken = response.access_token; 
+
+                // Step 3: Fetch IP data using the JWT
+                $.ajax({
+                    url: apiUrl + "/api/v2/ip?ip=" + clientIp, 
+                    method: "GET",
+                    headers: { Authorization: "Bearer " + jwtToken },
+                    success: function(ipData) {
+                        // Display IP data 
+                        $("#ip-data").html(JSON.stringify(ipData, null, 2)); 
+                    },
+                    error: function(error) {
+                        $("#ip-data").html("Error fetching IP data");
+                    }
+                });
+            },
+            error: function(error) {
+                $("#ip-data").html("Error during login (check API key)");
+            }
+        });
+    });
+});
+  </script>
+  <script>
+    window.addEventListener('load', function() {
+      const perfData = performance.getEntriesByType("navigation")[0];
+      // Calculate simple metrics
+      const dnsLookupTime = perfData.domainLookupEnd - perfData.domainLookupStart;
+      const connectionTime = perfData.connectEnd - perfData.connectStart;
+      const ttfb = perfData.responseStart - perfData.requestStart; // Time to First Byte
+      const totalResponseTime = perfData.responseEnd - perfData.requestStart;
+      // Output to console
+      console.log("DNS Lookup Time:", dnsLookupTime.toFixed(2), "ms");
+      console.log("Connection Time:", connectionTime.toFixed(2), "ms");
+      console.log("Time to First Byte (TTFB):", ttfb.toFixed(2), "ms");
+      console.log("Total Response Time:", totalResponseTime.toFixed(2), "ms");
+  });
+  </script>
+</body>
+</html>
