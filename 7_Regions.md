@@ -55,10 +55,10 @@ We are not going to deploy to eu-central-1 (Frankfurt) because
 We are not going to set up another DNS name to use latency-based routing to direct traffic to the ALBs. CloudFront will be our mechanism to distribute traffic.
 
 ### Testing
-First, we will generate traffic source from different global regions, followed by confirming traffic is reaching all regions.
+First, we will generate traffic sourced from different global regions, followed by confirming traffic is reaching all regions.
 
 #### Generate traffic with Online Speed Test Tools
-These have limited locations, but can quickly generate traffic to your different regions.
+These have limited locations but can quickly generate traffic to your different regions.
 - Pingdom: https://tools.pingdom.com/ (select from *Test from*)
 - WebPageTest: https://www.webpagetest.org/ (advanced options let you select more locations)
 
@@ -82,7 +82,7 @@ Dashboard
 ⚠️ In initial testing with origins in two regions did not see the container logging any hits in us-west-2.
 
 # Learning More
-- Think about pricing model of CloudFront affects your ability to add your application to regious outside US and Europe
+- Think about pricing model of CloudFront affects your ability to add your application to regions outside US and Europe
 - What do you think the capacity for each container is at 0.5vPC and 1Gb of memory at 80% target CPU?
 - What do you think the maximum capability of the max 10 scale size is?
 - How can you increase the capacity of each container to support more traffic?
