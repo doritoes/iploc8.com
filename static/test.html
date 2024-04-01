@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+  <head>
     <title>My IP Info</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-  <h1>IP Information</h1>
-  <div id="ip-data"></div>
-
-  <script>
+  </head>
+  <body>
+    <h1>IP Information</h1>
+    <div id="ip-data"></div>
+    <script>
 $(document).ready(function() {
     const apiUrl = "https://iploc8.com"; // Base URL for your Flask API
     const apiKey = "e95b186d-3677-4466-9cb2-20a549ab1d85"; 
@@ -46,21 +45,21 @@ $(document).ready(function() {
         });
     });
 });
-  </script>
-  <script>
-    window.addEventListener('load', function() {
-      const perfData = performance.getEntriesByType("navigation")[0];
-      // Calculate simple metrics
-      const dnsLookupTime = perfData.domainLookupEnd - perfData.domainLookupStart;
-      const connectionTime = perfData.connectEnd - perfData.connectStart;
-      const ttfb = perfData.responseStart - perfData.requestStart; // Time to First Byte
-      const totalResponseTime = perfData.responseEnd - perfData.requestStart;
-      // Output to console
-      console.log("DNS Lookup Time:", dnsLookupTime.toFixed(2), "ms");
-      console.log("Connection Time:", connectionTime.toFixed(2), "ms");
-      console.log("Time to First Byte (TTFB):", ttfb.toFixed(2), "ms");
-      console.log("Total Response Time:", totalResponseTime.toFixed(2), "ms");
-  });
-  </script>
-</body>
+    </script>
+    <script>
+      window.addEventListener('load', function() {
+        const perfData = performance.getEntriesByType("navigation")[0];
+        // Calculate simple metrics
+        const dnsLookupTime = perfData.domainLookupEnd - perfData.domainLookupStart;
+        const connectionTime = perfData.connectEnd - perfData.connectStart;
+        const ttfb = perfData.responseStart - perfData.requestStart; // Time to First Byte
+        const totalResponseTime = perfData.responseEnd - perfData.requestStart;
+        // Output to console
+        console.log("DNS Lookup Time:", dnsLookupTime.toFixed(2), "ms");
+        console.log("Connection Time:", connectionTime.toFixed(2), "ms");
+        console.log("Time to First Byte (TTFB):", ttfb.toFixed(2), "ms");
+        console.log("Total Response Time:", totalResponseTime.toFixed(2), "ms");
+});
+    </script>
+  </body>
 </html>
