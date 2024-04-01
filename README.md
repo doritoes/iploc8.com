@@ -4,7 +4,7 @@ Building a container-based geolocation API using Flask and MySQL running on Amaz
 [![Docker Pulls](https://img.shields.io/docker/pulls/doritoes/iploc8.com.svg)](https://hub.docker.com/r/doritoes/iploc8.com/)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Why one container for Flash and MySQL? Isn't the current pattern to use docker compose with separate continers for each service?
+Why one container for Flash and MySQL? Isn't the current pattern to use docker compose with separate containers for each service?
 * I wanted portable container that could easily run on ECS
 * The container loads the most recent geo data at instantiation in the database for lookup, but not updates are made
 * The container "ages out" after a configurable amount of runtime, trigging another container to load with fresh data
@@ -28,7 +28,7 @@ This demonstration site has the following features:
 # Project Goals
 Here are the goals I have for this project. If you would like to encourage me to add additional goals or to complete these goals, I'm open to [contributions](https://account.venmo.com/u/unclenuc) to pay my Cloud bills.
 
-This is mean to be a step-by-step Lab exercise that you can follow along to.
+This is meant to be a step-by-step Lab exercise that you can follow along to.
 
 ## In Scope
 ### Completed
@@ -42,7 +42,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 - multi-region
 - Zscaler and Broadcom SWG address spaces
 ### Working on
-- Pulicizing the lab
+- Publicizing the lab
 - Reducing costs of operation
 ### Will Do
 - Add MS published address spaces
@@ -73,7 +73,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
     - http://localhost:5000/test.html - API v2
 
 # Step-by-Step
-1. [Prerequistes](1_Prerequisites.md)
+1. [Prerequisites](1_Prerequisites.md)
 2. [Flask Application Design](2_Flask.md)
 3. [Building Docker Container](3_Docker.md)
 4. [Configuring ECS](4_ECS.md)
@@ -86,7 +86,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 - https://datahub.io/core/country-list
   - countries.csv was last refreshed from here 3/19/2024
 - https://github.com/sapics/ip-location-db
-  - this data is loaded on each container initilization
+  - this data is loaded on each container instantiation
 - https://ip-api.com/
   - thirds party geo-location API integration
 
@@ -94,7 +94,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 - https://iptoasn.com/
 - https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide
   - https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
-- Micorosoft Public IP address ranges in CSV https://www.microsoft.com/en-us/download/details.aspx?id=53602
+- Microsoft Public IP address ranges in CSV https://www.microsoft.com/en-us/download/details.aspx?id=53602
 - Broadcom proxy SWG
   - https://knowledge.broadcom.com/external/article/167174/web-security-service-wss-ingress-and-egr.html
   - https://servicepoints.threatpulse.com/
