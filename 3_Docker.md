@@ -2,7 +2,7 @@
 Create and Build the Web App Container
 
 Overview:
-- Clone the application from Github
+- Clone the application from GitHub
 - Optionally customize the web application
 - Build the image
 - Test the image in Docker
@@ -34,7 +34,7 @@ You will note that the application leverages (ip-api)[https://ip-api.com] for IP
     - You are running the container on your local host, so the IP address is 127.0.0.1
     - The application port is 5000 and are mapping it to your host port 5000, hence the `:5000` at the end
     - open Docker Desktop, click on the running container, and click the Inspect tab then Networks to learn more
-3. Try out some of the following links to the the container:
+3. Try out some of the following links to the container:
     - http://127.0.0.1:5000/
     - http://127.0.0.1:5000/healthcheck
     - http://127.0.0.1:5000/test.html
@@ -43,7 +43,7 @@ You will note that the application leverages (ip-api)[https://ip-api.com] for IP
       - the API key is validated and the connection secured using JWT
         - first the API is posted to retrieve a token
         - second the data is retrieved, secured by the token
-      - you can modify the url and apiKey to use your local docker container api v2
+      - you can modify the url and apiKey to use your local docker container API v2
     - http://127.0.0.1:5000/api/v1/ip?ip=8.8.8.8
     - http://127.0.0.1:5000/api/v3/ip/8.8.8.8
     - http://127.0.0.1:5000/api/v4/ip/8.8.8.8
@@ -52,12 +52,12 @@ You will note that the application leverages (ip-api)[https://ip-api.com] for IP
 
 # Learn More
 ## Testing health check function
-You can point your browser to the healtch check URL: http://127.0.0.1:5000/healthcheck
+You can point your browser to the health check URL: http://127.0.0.1:5000/healthcheck
 
 Another way is to use a `curl` command: `curl -v http://127.0.0.1:5000/healthcheck`
 
-### Container up for longer that 12 hours
-If the container us up longer that 12 hours, an HTTP 203 status will be retuns an a message explaining why.
+### Container up for longer than 12 hours
+If the container is up longer than 12 hours, an HTTP 203 status will be returned with a message explaining why.
 ~~~
 {
   "status": "Container uptime exceeds threshold (uptime: 234027.9399881363 seconds)"
@@ -91,13 +91,13 @@ Download [postman]([https://www.postman.com/](https://www.postman.com/downloads/
 
 You don't need to create an account for basic features. We will point postman at our Docker container.
 
-### Test api v1
+### Test API v1
 1. Set the method to **GET**
 2. Enter the url **http://localhost:5000/api/v1/ip?ip=9.9.9.9**
 3. Click **Send**
 4. See the data returned below
 
-### Test api v3 and v4
+### Test API v3 and v4
 1. Set the method to **GET**
 2. Enter the url **http://localhost:5000/api/v3/ip/9.9.9.9**
 3. Click **Send**
@@ -105,14 +105,14 @@ You don't need to create an account for basic features. We will point postman at
 5. Repeat for the url **http://localhost:5000/api/v3/ip/9.9.9.9**
 6. Examine the results. Note the attribution information. This is not required for use for the data. However, I appreciate ip-api.com and want to provide this information in my API in support of their free service.
 
-### Test api v2
+### Test API v2
 This one is a bit more complex and secure. Examine the static `test.html` file to see how this same process is done using javascript.
 1. Create the first tab to get the JWT token
     - Set the method to **POST**
     - URL: **http://localhost:5000/api/v2/login**
     - Headers: Add header **Content-Type** with value **application/json**
     - Body: click the **raw** tab and enter: `{ "api_key": "e95b186d-3677-4466-9cb2-20a549ab1d85" }`
-      - if you changed the api key in your container, update this it match it
+      - if you changed the API key in your container, update this to match it
     - Click **Send**
     - Copy the "access_token" value from the response
     - We will use this access token in the next step
@@ -135,9 +135,9 @@ Let's run it against our container:
 - `python3 sqlmap.py http://127.0.0.1:5000/api/v1/ip?ip=8.8.8.8`
 - `python3 sqlmap.py http://127.0.0.1:5000/api/v4/ip?ip=8.8.8.8`
 
-It's not very exciting because if the strong input validation in the app.py file. The app returns HTTP 400 for invalid IP addresses. If you open Docker Desktop and look at the logs, it's very boring.
+It's not very exciting because of the strong input validation in the app.py file. The app returns HTTP 400 for invalid IP addresses. If you open Docker Desktop and look at the logs, it's very boring.
 
-To view the logs from the commmand line
+To view the logs from the command line
 - docker ps
 - docker logs <container ID from the previous command.
 
@@ -148,20 +148,20 @@ BE SURE to restore the input validations BEFORE you deploy the container publicl
 ## Checking for Vulnerabilities
 You will be amazed how so simple an application can accumulate vulnerabilities.
 
-In Docker Desktop, click in the Image that you built. On the right side, note the tabs "Images", "Vulnerabilities" and "Packages".
+In Docker Desktop, click on the Image that you built. On the right side, note the tabs "Images", "Vulnerabilities" and "Packages".
 
-Note the 3 images used to build the image. Note how each image inherits the vunlerabilities of the image above and passes then on to the image below.
+Note the 3 images used to build the image. Note how each image inherits the vulnerabilities of the image above and passes then on to the image below.
 
-Images: Do any of the image have a newer image available?
+Images: Do any of the images have a newer image available?
 
-Vulnerabilties: What packages are vulnerable? What layers (lines in the Dockerfile) introduce these vulnerabilities? If you expand the vulnerable librarites, note the CVE and CWE links. You can click those for more information.
+Vulnerabilities: What packages are vulnerable? What layers (lines in the Dockerfile) introduce these vulnerabilities? If you expand the vulnerable libraries, note the CVE and CWE links. You can click those for more information.
 
 In the top right find *Recommended fixes*. What recommendations do you find?
 
 Common example for rebuilding with a new base image version:
 `docker build --pull . -t flask:latest
 
-Note that Docker Desktop has more extensions to help you examine your iamges:
+Note that Docker Desktop has more extensions to help you examine your images:
 - Anchore - no account required, scans all images for vulnerable packages
 - Aqua Trivy - no account required
 - Snyk - account required, limited personal user for free
@@ -175,6 +175,6 @@ Ther are other vulnerability scanners for images outside of Docker desktop:
 ## Learn about securing Docker Containers
 https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html
 
-What are some secruity concerns with this the iploc8.com container?
+What are some security concerns with this the iploc8.com container?
 - design prevents using --read-only filesystem
 - what else?
