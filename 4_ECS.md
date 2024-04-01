@@ -192,7 +192,7 @@ You need to configure VPCs for the networking in each region. The following exam
       - **From ACM**
       - Select the ACM certificate from the dropdown
     - AWS Web Application Firewall (WAF)
-      - Check **Include WAF secruity protections behidn the load balancer**
+      - Check **Include WAF security protections behind the load balancer**
       - NOTE This incurs additional costs
       - The default auto-create ACL and action of *Block* are fine
     - Leave the remaining settings at defaults
@@ -263,7 +263,7 @@ This role allows ECS tasks to pull images from ECR and perform other necessary A
         - Interval: **30** seconds (recommended)
         - Timeout: **5** seconds (recommended)
         - Start period: **300** seconds
-          - This container by design takes a long time to start up. It downloads and imports data file from external sources. Without this change, the container will be terminated before it has a chance to come up and show "healthy".
+          - This container by design takes a long time to start up. It downloads and imports data files from external sources. Without this change, the container will be terminated before it has a chance to come up and show "healthy".
         - Retries: **2** (one or two retries before making the container unhealthy)
     - Click **Create**
 
@@ -313,12 +313,12 @@ This role allows ECS tasks to pull images from ECR and perform other necessary A
       - Click **Create**
 4. Click on the new service you created, then click **Update service**
     - Under Load balancing set *Health check grace period* to **240** seconds
-    - This container by design takes a long time to start up. It downloads and imports data file from external sources. Without this change, the container will be terminated before it has a chance to come up and show "healthy".
+    - This container by design takes a long time to start up. It downloads and imports data files from external sources. Without this change, the container will be terminated before it has a chance to come up and show "healthy".
     - Check **Force new deployment**
     - Click **Update**
 5. Click the refresh buttons and look for
     - The cluster to show active, Active 1, Running 1
-    - The service section will show the the container health and status
+    - The service section will show the container health and status
     - If the status running but the status is *Unhealthy*, check your health check settings
 
 ## Test the container
@@ -367,6 +367,6 @@ Here are some tests you can try to confirm the site is loading in all use cases
 
 # Learn More
 ## ECR Image Scanning
-In ECR you can select an image an click **Scan**. After a few minutes, you will have a report of vulnerabilities.
+In ECR you can select an image and click **Scan**. After a few minutes, you will have a report of vulnerabilities.
 
-This report is significantly different from the output of your Docker Desktop vulnerability report. Interestingly, ELSA numbers are listed for our container, which link to the Oracle Linux Errata repository.
+This report is significantly different from the output of your Docker Desktop vulnerability report. Interestingly, ELSA numbers are listed for our container, which links to the Oracle Linux Errata repository.
