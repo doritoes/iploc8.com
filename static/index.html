@@ -1,17 +1,89 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>iploc8.com</title>
+    <title>iploc8.com - Technology Demonstration</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Arvo:700);
+      @import url(https://fonts.googleapis.com/css?family=Seaweed+Script);
+      body {
+        background-color: #222;
+        a:link { 
+          text-decoration: none; 
+        } 
+        a:visited { 
+          text-decoration: none; 
+        } 
+        a:hover { 
+          text-decoration: underline white; 
+        } 
+        a:active { 
+          text-decoration: underline white;
+        }
+      }
+      .plate {
+        width: 510px;
+        margin: 10% auto;
+      }
+      .shadow {
+        color: #fff;
+        font-family: Arvo;
+        font-weight: bold;
+        text-shadow:
+          -3px -3px 0 #222,
+          3px -3px 0 #222,
+          -3px 3px 0 #222,
+          3px 3px 0 #222,
+          4px 4px 0 #fff,
+          5px 5px 0 #fff,
+          6px 6px 0 #fff,
+          7px 7px 0 #fff;
+        line-height: 0.8em;
+        letter-spacing: 0.1em;
+        transform: scaleY(0.7);
+        -webkit-transform: scaleY(0.7);
+        -moz-transform: scaleY(0.7);
+        margin:0;
+        text-align: center;
+      }
+      .script {
+        font-family: "Seaweed Script";
+        color: #fff;
+        text-align: center;
+        font-size: 40px;
+        position: relative;
+        margin:0;
+      }
+      .script span {
+        background-color: #222;
+        padding: 0 0.3em;
+      }
+      .script:before {
+        content:"";
+        display: block;
+        position: absolute;
+        z-index:-1;
+        top: 50%;
+        width: 100%;
+        border-bottom: 3px solid #fff;
+      }
+      .text1 {
+        font-size: 60px;
+      }
+      .text2 {
+        font-size: 169px;
+      }
+      .text3 {
+        font-size: 100px;
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <h1>iploc8.com</h1>
-    </header>
-    <main>
-      <p>IP location API</p> 
-    </main>
-    <footer>
-      &copy;2024 iploc8.com hosted on Amazon ECS
-    </footer>
+    <!-- found at https://cssdeck.com/labs/8k3h0wq2 - saving for css snippets -->
+    <div class="plate">
+      <p class="script"><span>Technology</span></p>
+      <p class="shadow text1">iploc8.com</p>
+      <p class="script"><span>Demonstration Site</span></p>
+      <p>Documentation on <a href="https://github.com/doritoes/iploc8.com/">GitHub</a></p>
+    </div>
   </body>
 </html>
