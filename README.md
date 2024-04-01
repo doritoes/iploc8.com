@@ -33,6 +33,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 ## In Scope
 ### Completed
 - Register domain name
+- Bootstrap repo and Dock hub image
 - first geo API with country and ASN data
 - second geo API with city data, secured with API key and JWT tokens
 - third and fourth geo API integrating with ip-api.com
@@ -40,10 +41,9 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 - one region built in ECS with CloudFront and WAF protection
 - multi-region
 - Zscaler and Broadcom SWG address spaces
-- bootstrapping image on Docker Hub
 ### Working on
-- bootstrapping repo on Github
-- create home page
+- Pulicizing the lab
+- Reducing costs of operation
 ### Will Do
 - Add MS published address spaces
 - Add Tor published address spaces
