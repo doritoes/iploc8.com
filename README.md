@@ -4,7 +4,7 @@ Building a container-based geolocation API using Flask and MySQL running on Amaz
 [![Docker Pulls](https://img.shields.io/docker/pulls/doritoes/iploc8.com.svg)](https://hub.docker.com/r/doritoes/iploc8.com/)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Why one container for Flash and MySQL? Isn't the current pattern to use docker compose with separate containers for each service?
+Why one container for Flask and MySQL? Isn't the current pattern to use docker compose with separate containers for each service?
 * I wanted portable container that could easily run on ECS
 * The container loads the most recent geo data at instantiation in the database for lookup, but not updates are made
 * The container "ages out" after a configurable amount of runtime, trigging another container to load with fresh data
@@ -16,13 +16,11 @@ The goal is to leverage repositories with geo-location data together with publis
 
 This demonstration site has the following features:
 * Serverless computing on Fargate
-* Small container based on Alpine Linux
 * Python Flask with MySQL back-end database
 * API design examples
   * unrestricted
   * JWT with API keys
   * CloudFront WAP protections
-* Gradually release new experiences to the web application
 * Demonstrate global autoscaling container applications without breaking the bank (don't want to cost too much for this free site)
 
 # Project Goals
@@ -65,7 +63,7 @@ This is meant to be a step-by-step Lab exercise that you can follow along to.
 3. docker build -t my-flask-mysql .
 4. docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
     - you will see "MySQL is unavailable -sleeping" for while
-    - Or run detached: docker run -d -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password flask
+    - Or run detached: docker run -d -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
 5. test
     - http://localhost:5000 - test page
     - http://localhost:5000/healthcheck - health check
@@ -88,7 +86,7 @@ This is meant to be a step-by-step Lab exercise that you can follow along to.
 - https://github.com/sapics/ip-location-db
   - this data is loaded on each container instantiation
 - https://ip-api.com/
-  - thirds party geo-location API integration
+  - third party geo-location API integration
 
 ## Find Out More
 - https://iptoasn.com/
@@ -114,4 +112,3 @@ This is meant to be a step-by-step Lab exercise that you can follow along to.
 - https://www.abuseipdb.com/
 - https://www.projecthoneypot.org/list_of_ips.php
 - https://www.spamhaus.org/ip-reputation/
-- https://status.fortisase.com/
