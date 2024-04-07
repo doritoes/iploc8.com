@@ -124,6 +124,10 @@ I hope you take some time to look at the Python flask application itself, is it 
 - authentication with API key and JWT tokens
 - exposure to CORS
 
+❓Compare Amazon ECS on Fargate with AWS Lightsail Containers
+- How can Lightsail Containers reduce the cost? How are Lightsail Container costs more predictable?
+- What advanced features do you gain on Amazon ECS?
+
 ## Learn More
 ### Reading suggestions
 I recommend reading/learning more! Here are some free and some paid resources that you may already have access to
