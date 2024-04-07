@@ -13,7 +13,8 @@ Required knowledge and understanding
 Required resources
 - You will need a [login to the AWS Management Console](https://console.aws.amazon.com)
 - You will need to fund your experiments and projects on AWS using a credit card
-  - CAUTION It is your responsibility to clean up everything you don't need, because AWS payment terms and conditions apply!
+  - :warning: CAUTION It is your responsibility to clean up everything you don't need, because AWS payment terms and conditions apply!
+  - Public IP addresses, ELB usage, ECS Fargate costs, and Route53 costs add up
 - If you do not already have a domain name in AWS DNS to use, you will want to register one
     - https://aws.amazon.com/route53/pricing/ has a list of pricing by TLD
     - .click $3
