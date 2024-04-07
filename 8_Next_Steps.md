@@ -1,7 +1,11 @@
 # Next Steps
 
 ## Deploy updated container image
-You will need to repeat this for each region you are deployed in
+You will need to repeat this for each region you are deployed in.
+
+Rebuild the container (see [section 3](3_Docker.md) with the `--pull` argument. This requests docker to pull a fresh upstream image. This ensures you get the latest updates.
+
+`docker build -t flask . --pull`
 
 ### Push the latest container to ECR
 See [section 4](4_ECS.md) for the instructions for pushing images to ECR
@@ -36,7 +40,7 @@ Top costs:
 * Public IP addresses
 * ELB
 * ECS
-* WAF
+* WAF (⚠️there are costs per ACL that accumulate quickly)
 
 ### Remove unecessary public IP addresses
 Amazon now charges about $3.60/month for public IP addresses. You don't need a public IP on the Load Balancer if you are using Route53 and CloudFront.
