@@ -30,6 +30,16 @@ Is it a new image URI and/or a new tag? If so, do this:
 2. Click on the new task, find the Public IP and open it with port 8080 (e.g. http://3.81.118.133:5000)
 
 ## Reducing Costs
+This is an expensive lab to run. Be sure to decomission it as soon as you are done with it.
+
+Top costs:
+* Public IP addresses
+* ELB
+* ECS
+* WAF
+
+### Remove unecessary public IP addresses
+Amazon now charges about $3.60/month for public IP addresses. You don't need a public IP on the Load Balancer if you are using Route53 and CloudFront.
 
 ### Turn off logging
 Turn off logging after the application is working, if you don't need the logs.
