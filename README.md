@@ -9,6 +9,30 @@ Why one container for Flask and MySQL? Isn't the current pattern to use docker c
 * The container loads the most recent geo data at instantiation in the database for lookup, but not updates are made
 * The container "ages out" after a configurable amount of runtime, trigging another container to load with fresh data
 
+Please be forewarned that this lab is fairly expensive. AWS promises to save you up to 50% on compute costs by utilizing autonomous scaling, provisioning, and usage-based pricing. However the costs of even a lab environment add up quickly. Here the top costs:
+- VPC costs 💵
+  - includes public IP address pricing (Elastic IP)
+    - For example us-east-1 (USE1-PublicIPv4:InUseAddress)
+    - On 2/1/2024 Amazon started charging for public IP addresses in use
+      - https://cybernews.com/tech/amazon-web-services-charge-ipv4-addresses/
+      - Single IP is $3.60/month or $43.80/year
+- ELB costs 💵
+  - you pay for AWS resources to run the load balancer(s)
+  - per application load balancer-hour
+  - per LCU-hour (load-based)
+  - redue the number of regions
+- ECS costs 💵
+  - you pay for the memory and vCPU resourcs the containers use
+  - reduce costs by reducing the minimum required CPU and memory in the Task definition
+  - reduce scaling - use step scaling and reduce the maximum number of tasks
+  - reduce the number of regions
+- Route53 - monthly cost
+- EC2 costs / EC2 - Other
+  - Idle Elastic IPs incur a small fee
+  - ELB usage is charged a small fee
+
+*Learn more at https://www.appsdevpro.com/blog/aws-fargate-pricing/*
+
 # Overview and Genesis
 After building a few IP address look up sites on different technologies, I wanted to create my own custom geo-lookup API that I can leverage on my other sites.
 
