@@ -257,6 +257,11 @@ This role allows ECS tasks to pull images from ECR and perform other necessary A
       - Read only root file system: **Leave off** (our application can run with Read Only enabled)
       - Resource allocation limits
         - Generally leave this as is. Note this is empty (no values)
+      - Expand *Environment variables*
+        - Click **Add environment variable**
+        - Key: **MYSQL_ROOT_PASSWORD**
+        - Value type: **Value**
+        - Value: **your_password** (or specify your own value)
       - Log collection: **On** for testing, **Off** to reduce costs
       - HealthCheck - Optional: (incurs small costs)
         - Command: `CMD-SHELL,curl -f http://localhost:5000/healthcheck || exit 1`
