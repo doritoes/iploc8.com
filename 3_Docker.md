@@ -28,8 +28,9 @@ You will note that the application leverages [ip-api](https://ip-api.com) for IP
 
 ## Test the image in Docker
 1. Run the container locally:
-    - `docker run -p 5000:5000 flask`
+    - `docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password flask`
     - If Docker asks to if you want to permit the required network access, Accept it
+    - Replace "your_password" with the password you want to use
 2. Launch a browser and point to: http://127.0.0.1:5000
     - You are running the container on your local host, so the IP address is 127.0.0.1
     - The application port is 5000 and are mapping it to your host port 5000, hence the `:5000` at the end
