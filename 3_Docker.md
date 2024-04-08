@@ -62,7 +62,7 @@ If the container is up longer than 12 hours, an HTTP 203 status will be returned
 {
   "status": "Container uptime exceeds threshold (uptime: 234027.9399881363 seconds)"
 }
-~~
+~~~
 
 ### Empty tables in the database
 If some of the external data fails to load in the MySQL database, an HTTP 500 status is returned.
