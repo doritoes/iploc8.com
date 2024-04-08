@@ -17,7 +17,7 @@ Overview:
 ## Customize the iploc8.com Flask App
 Optionally, customize the application.
 
-You will note that the application leverages (ip-api)[https://ip-api.com] for IP address lookup.
+You will note that the application leverages [ip-api](https://ip-api.com) for IP address lookup.
 
 ## Build the image
 1. From the command line change directory for your project folder
