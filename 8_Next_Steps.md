@@ -1,7 +1,11 @@
 # Next Steps
 
 ## Deploy updated container image
-You will need to repeat this for each region you are deployed in
+You will need to repeat this for each region you are deployed in.
+
+Rebuild the container (see [section 3](3_Docker.md) with the `--pull` argument. This requests docker to pull a fresh upstream image. This ensures you get the latest updates.
+
+`docker build -t flask . --pull`
 
 ### Push the latest container to ECR
 See [section 4](4_ECS.md) for the instructions for pushing images to ECR
@@ -30,6 +34,16 @@ Is it a new image URI and/or a new tag? If so, do this:
 2. Click on the new task, find the Public IP and open it with port 8080 (e.g. http://3.81.118.133:5000)
 
 ## Reducing Costs
+This is an expensive lab to run. Be sure to decomission it as soon as you are done with it.
+
+Top costs:
+* Public IP addresses
+* ELB
+* ECS
+* WAF (⚠️there are costs per ACL that accumulate quickly)
+
+### Remove unecessary public IP addresses
+Amazon now charges about $3.60/month for public IP addresses. You don't need a public IP on the Load Balancer if you are using Route53 and CloudFront.
 
 ### Turn off logging
 Turn off logging after the application is working, if you don't need the logs.
@@ -110,6 +124,10 @@ I hope you take some time to look at the Python flask application itself, is it 
 - authentication with API key and JWT tokens
 - exposure to CORS
 
+❓Compare Amazon ECS on Fargate with AWS Lightsail Containers
+- How can Lightsail Containers reduce the cost? How are Lightsail Container costs more predictable?
+- What advanced features do you gain on Amazon ECS?
+
 ## Learn More
 ### Reading suggestions
 I recommend reading/learning more! Here are some free and some paid resources that you may already have access to
@@ -118,6 +136,6 @@ I recommend reading/learning more! Here are some free and some paid resources th
 - https://www.udemy.com/topic/amazon-ecs/?utm_source=
 - https://www.f5.com/labs/learning-center/securing-apis-10-best-practices-for-keeping-your-data-and-infrastructure-safe
 
-### Compare AWS Fargate to other Serverless Techonologies
+### Compare AWS Fargate to other Serverless Technologies
 - https://duttaaniruddha31.medium.com/aws-fargate-vs-google-cloud-run-f6706e1e6147
 - https://blog.iron.io/aws-fargate-vs-azure-containers/

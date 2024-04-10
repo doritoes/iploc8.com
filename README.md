@@ -4,10 +4,34 @@ Building a container-based geolocation API using Flask and MySQL running on Amaz
 [![Docker Pulls](https://img.shields.io/docker/pulls/doritoes/iploc8.com.svg)](https://hub.docker.com/r/doritoes/iploc8.com/)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Why one container for Flash and MySQL? Isn't the current pattern to use docker compose with separate continers for each service?
+Why one container for Flask and MySQL? Isn't the current pattern to use docker compose with separate containers for each service?
 * I wanted portable container that could easily run on ECS
 * The container loads the most recent geo data at instantiation in the database for lookup, but not updates are made
 * The container "ages out" after a configurable amount of runtime, trigging another container to load with fresh data
+
+Please be forewarned that this lab is fairly expensive. AWS promises to save you up to 50% on compute costs by utilizing autonomous scaling, provisioning, and usage-based pricing. However the costs of even a lab environment add up quickly. Here the top costs:
+- VPC costs 💵
+  - includes public IP address pricing (Elastic IP)
+    - For example us-east-1 (USE1-PublicIPv4:InUseAddress)
+    - On 2/1/2024 Amazon started charging for public IP addresses in use
+      - https://cybernews.com/tech/amazon-web-services-charge-ipv4-addresses/
+      - Single IP is $3.60/month or $43.80/year
+- ELB costs 💵
+  - you pay for AWS resources to run the load balancer(s)
+  - per application load balancer-hour
+  - per LCU-hour (load-based)
+  - redue the number of regions
+- ECS costs 💵
+  - you pay for the memory and vCPU resourcs the containers use
+  - reduce costs by reducing the minimum required CPU and memory in the Task definition
+  - reduce scaling - use step scaling and reduce the maximum number of tasks
+  - reduce the number of regions
+- Route53 - monthly cost
+- EC2 costs / EC2 - Other
+  - Idle Elastic IPs incur a small fee
+  - ELB usage is charged a small fee
+
+*Learn more at https://www.appsdevpro.com/blog/aws-fargate-pricing/*
 
 # Overview and Genesis
 After building a few IP address look up sites on different technologies, I wanted to create my own custom geo-lookup API that I can leverage on my other sites.
@@ -16,19 +40,17 @@ The goal is to leverage repositories with geo-location data together with publis
 
 This demonstration site has the following features:
 * Serverless computing on Fargate
-* Small container based on Alpine Linux
 * Python Flask with MySQL back-end database
 * API design examples
   * unrestricted
   * JWT with API keys
   * CloudFront WAP protections
-* Gradually release new experiences to the web application
 * Demonstrate global autoscaling container applications without breaking the bank (don't want to cost too much for this free site)
 
 # Project Goals
 Here are the goals I have for this project. If you would like to encourage me to add additional goals or to complete these goals, I'm open to [contributions](https://account.venmo.com/u/unclenuc) to pay my Cloud bills.
 
-This is mean to be a step-by-step Lab exercise that you can follow along to.
+This is meant to be a step-by-step Lab exercise that you can follow along to.
 
 ## In Scope
 ### Completed
@@ -42,7 +64,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 - multi-region
 - Zscaler and Broadcom SWG address spaces
 ### Working on
-- Pulicizing the lab
+- Publicizing the lab
 - Reducing costs of operation
 ### Will Do
 - Add MS published address spaces
@@ -65,7 +87,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 3. docker build -t my-flask-mysql .
 4. docker run -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
     - you will see "MySQL is unavailable -sleeping" for while
-    - Or run detached: docker run -d -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password flask
+    - Or run detached: docker run -d -p 5000:5000 -e MYSQL_ROOT_PASSWORD=your_password my-flask-mysql
 5. test
     - http://localhost:5000 - test page
     - http://localhost:5000/healthcheck - health check
@@ -73,7 +95,7 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
     - http://localhost:5000/test.html - API v2
 
 # Step-by-Step
-1. [Prerequistes](1_Prerequisites.md)
+1. [Prerequisites](1_Prerequisites.md)
 2. [Flask Application Design](2_Flask.md)
 3. [Building Docker Container](3_Docker.md)
 4. [Configuring ECS](4_ECS.md)
@@ -86,15 +108,15 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 - https://datahub.io/core/country-list
   - countries.csv was last refreshed from here 3/19/2024
 - https://github.com/sapics/ip-location-db
-  - this data is loaded on each container initilization
+  - this data is loaded on each container instantiation
 - https://ip-api.com/
-  - thirds party geo-location API integration
+  - third party geo-location API integration
 
 ## Find Out More
 - https://iptoasn.com/
 - https://learn.microsoft.com/en-us/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide
   - https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7
-- Micorosoft Public IP address ranges in CSV https://www.microsoft.com/en-us/download/details.aspx?id=53602
+- Microsoft Public IP address ranges in CSV https://www.microsoft.com/en-us/download/details.aspx?id=53602
 - Broadcom proxy SWG
   - https://knowledge.broadcom.com/external/article/167174/web-security-service-wss-ingress-and-egr.html
   - https://servicepoints.threatpulse.com/
@@ -114,4 +136,3 @@ This is mean to be a step-by-step Lab exercise that you can follow along to.
 - https://www.abuseipdb.com/
 - https://www.projecthoneypot.org/list_of_ips.php
 - https://www.spamhaus.org/ip-reputation/
-- https://status.fortisase.com/
