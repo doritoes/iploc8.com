@@ -48,9 +48,9 @@ This demonstration site has the following features:
 * Demonstrate global autoscaling container applications without breaking the bank (don't want to cost too much for this free site)
 
 # Project Goals
-Here are the goals I have for this project. If you would like to encourage me to add additional goals or to complete these goals, I'm open to [contributions](https://account.venmo.com/u/unclenuc) to pay my Cloud bills.
+Here are the goals I had for this project. This is meant to be a step-by-step Lab exercise that you can follow along to.
 
-This is meant to be a step-by-step Lab exercise that you can follow along to.
+**IMPORTANT** The web site https://iploc8.com is being discontinued. The cost of AWS outweighs the value to me.
 
 ## In Scope
 ### Completed
@@ -63,19 +63,16 @@ This is meant to be a step-by-step Lab exercise that you can follow along to.
 - one region built in ECS with CloudFront and WAF protection
 - multi-region
 - Zscaler and Broadcom SWG address spaces
-### Working on
-- Publicizing the lab
+### Main Concerns
 - Reducing costs of operation
-### Will Do
-- Add MS published address spaces
-- Add Tor published address spaces
-### Might Do
+### Missing Features
+- MS published address spaces
 - MS Azure customer space
 - GCP customer space
 - AWC customer space
+- Tor published address spaces
 - Threat Intel enrichment
   - Reputation/blacklists
-- Might migrate to Azure or GCP if it becomes an interesting challenge
 ## Out of Scope
 - Amazon Elastic Kubernetes Service (EKS) doesn't meet my criteria for integrating a new technology for me. I have done other Kubernetes labs ([here](https://www.unclenuc.com/lab:kubernetes_app:start) and [here](https://www.unclenuc.com/lab:stack_of_nucs:start)).
 
